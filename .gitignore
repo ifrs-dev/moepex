@@ -1,0 +1,8 @@
+*~
+*.pye
+*.pyc
+*.sqlite3
+
+
+venv
+*/py_cache/*
