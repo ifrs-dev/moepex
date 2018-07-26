@@ -309,7 +309,7 @@ div#preloader {
 
 .main-menu ul.navbar-nav li.active a {
   background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
-  color: #fff;
+  color: #00510F;
   position: relative;
 }
 
@@ -406,7 +406,7 @@ div#preloader {
 }
 
 .sticky-logo h1 span {
-  color: #3ec1d5;
+  color: #17882C;
 }
 .stick .main-menu ul.navbar-nav li.active a::after {
   border: 1px solid #fff;
