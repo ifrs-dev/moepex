@@ -21,6 +21,10 @@ body {
 
 background-color: #359F48; 
 }
+.col{
+  text-align: center;    
+}
+
 
 /* Custom page CSS
 -------------------------------------------------- */
@@ -40,7 +44,11 @@ code {
 }
 
 .banner_if{
-
   height:50px; 
   width:200px; 
+}
+.navbar-brand{
+  font-size: 24px;
+  font-family: sans-serif;
+  font-weight: bolder;
 }
