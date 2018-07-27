@@ -19,7 +19,7 @@ body {
 }
 .bg-green{
 
-background-color: #359F48; 
+background-color: #D6F7CC; 
 }
 .col{
   text-align: center;    
@@ -51,4 +51,21 @@ code {
   font-size: 24px;
   font-family: sans-serif;
   font-weight: bolder;
+}
+
+.navbar-dark .navbar-nav .active > .nav-link{
+color: black;
+font-family: serif;
+font-size: 15px;
+}
+
+.navbar-dark .navbar-nav .active > .nav-link:hover{
+color: #EE2140;
+font-family: serif;
+font-size: 15px;
+}
+
+.logo{
+  height: 50px; 
+  width: 100px;
 }
