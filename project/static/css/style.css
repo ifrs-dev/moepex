@@ -54,13 +54,13 @@ code {
   font-weight: bolder;
 }
 
-.navbar-dark .navbar-nav .active > .nav-link{
+.navbar-dark .navbar-nav .nav-link{
 color: black;
 font-family: serif;
 font-size: 15px;
 }
 
-.navbar-dark .navbar-nav .active > .nav-link:hover{
+.navbar-dark .navbar-nav .nav-link:hover{
 color: #EE2140;
 font-family: serif;
 font-size: 15px;
@@ -70,4 +70,16 @@ font-size: 15px;
   height: 50px; 
   width: 100px;
 }
+
+.btn-info {
+    color: black;
+    background-color: #D6F7CC;
+    border-color: gray;
+}
+.btn:hover{
+    color: black;
+    background-color: #a6F7aC;
+    border-color: gray;
+}
+
 
