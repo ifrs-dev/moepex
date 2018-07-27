@@ -54,8 +54,32 @@
 		</div>
 	</div><br><br>
 
-	<div class="row">
+	<div>
 		Mussum Ipsum, cacilds vidis litro abertis. Atirei o pau no gatis, per gatis num morreus. Delegadis gente finis, bibendum egestas augue arcu ut est. Quem manda na minha terra sou euzis! Não sou faixa preta cumpadi, sou preto inteiris, inteiris. Mussum Ipsum, cacilds vidis litro abertis. Em pé sem cair, deitado sem dormir, sentado sem cochilar e fazendo pose. Delegadis gente finis, bibendum egestas augue arcu ut est. Posuere libero varius. Nullam a nisl ut ante blandit hendrerit. Aenean sit amet nisi. Suco de cevadiss, é um leite divinis, qui tem lupuliz, matis, aguis e fermentis. 
+	</div><br><br>
+	<div class="container">
+			<ul>
+		<h2>Eventos</h2>           
+		<table class="table">
+			<thead>
+				<tr>
+					<th>Nome</th>
+					<th>Status</th>
+					<th>Vagas</th>
+				</tr>
+			</thead>
+			{% for event in object_list %}
+			<tbody>
+				<tr>
+					<td>{{ event.title }}</td>
+					<td>{{ event.status }}</td>
+					<td>{{ event.vacancies }}</td>
+				</tr>
+			</tbody>
+			{% endfor %}
+		</table>
+			</ul>
+				
 	</div><br><br>
 	<div class="row">
 		<div class="col"><i class="fas fa-school fa-3x"></i></div>
