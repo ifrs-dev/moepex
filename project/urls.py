@@ -7,11 +7,13 @@ from django.conf import settings
 from event_site import views as views_event_site
 from events import views as views_events
 
+
 urlpatterns = [
-    path('', views_event_site.SiteTemplateView.as_view(), name='home'),
+    path('', views_events.EventListView.as_view(), name='home'),
     path('eventos/novo', views_events.EventCreateView.as_view(), name='event-create'),
     path('login/', auth_views.LoginView.as_view(), name="login"),
 	path('logout/', auth_views.logout, {'next_page': '/login/'}, name="logout"),
+    path('evento/<int:pk>/', views_events.EventDetailView.as_view(), name='event-detail'),
     path('admin/', admin.site.urls),
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
