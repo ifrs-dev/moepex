@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+    Aprovados
+    {% for event in approved %}
+        {% include "events-table.html" %}
+    {% endfor %}
+    Não Aprovados
+    {% for event in notapproved %}
+        {% include "events-table.html" %}
+    {% endfor %}
+{% endblock content %}
