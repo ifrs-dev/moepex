@@ -65,6 +65,12 @@ color: #EE2140;
 font-family: serif;
 font-size: 15px;
 }
+.navbar-dark .navbar-nav .nav-link:focus{
+color: black;
+}
+.navbar-dark .navbar-nav .nav-link:active{
+color: red;
+}
 
 .logo{
   height: 50px; 
@@ -81,5 +87,4 @@ font-size: 15px;
     background-color: #a6F7aC;
     border-color: gray;
 }
-
 
