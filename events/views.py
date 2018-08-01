@@ -20,7 +20,19 @@ class EventDetailView(DetailView):
     model = Event
     template_name = 'events/event-detail.html'
 
-    def get_context_data(self, *args, **kwargs):
-        context = super().get_context_data()
-        user = self.request.user
 
+
+class EventInAvaliation(EventListView):
+    queryset = Event.objects.filter(status=1)
+
+
+class EventApproved(EventListView):
+    queryset = Event.objects.filter(status=2)
+
+
+class EventInCorrections(EventListView):
+    queryset = Event.objects.filter(status=3)
+
+
+class EventNoApproved(EventListView):
+    queryset = Event.objects.filter(status=4)
