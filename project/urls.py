@@ -14,7 +14,7 @@ urlpatterns = [
     path('login/', auth_views.LoginView.as_view(), name="login"),
 	path('logout/', auth_views.logout, {'next_page': '/login/'}, name="logout"),
     path('evento/<int:pk>/', views_events.EventDetailView.as_view(), name='event-detail'),
-    path('dashboard/eventos/', views_events.EventListView.as_view(), name='event-detail'),
+    path('dashboard/eventos/', views_events.EventListView.as_view(), name='event-list'),
     path('admin/', admin.site.urls),
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

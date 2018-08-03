@@ -24,26 +24,9 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ml-auto">
-            {% if request.user.is_superuser%}
-            <li class="nav-item">
-              <a class="nav-link" href="{% url 'home' %}">Todos</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{% url 'event-inavaliation' %}">Em avaliação</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{% url 'event-incorrections' %}">Em correção</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{% url 'event-approved' %}">Aprovados</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{% url 'event-noapproved' %}">Negados</a>
-            </li>
-            {% endif %}
-            {% if request.user.is_staff %}
+            {% if request.user.is_superuser %}
               <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="{% url 'event-list' %}">
                   <i class="far fa-calendar-alt"></i>
                 </a>
               </li>

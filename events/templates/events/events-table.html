@@ -1,14 +1,20 @@
-<table>
-    <thead>
-        <tr>
-            <th>Nome</th>
-            <th>Data</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            {{ event.name }}
-            {{ event.start_date }}
-        </tr>
-    </tbody>
-</table>
+<div class="container">          
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Data Inicial</th>
+                <th>Data Final</th>
+                <th>Data de Registro</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td> <a href="{% url 'event-detail' event.pk %}">{{ event.title }}</a></td>
+                <th>{{ event.start_date }}</th>
+                <th>{{ event.end_date }}</th>
+                <th>{{ event.registration_date }}</th>
+            </tr>
+        </tbody>
+    </table>
+</div>

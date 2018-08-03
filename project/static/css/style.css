@@ -25,8 +25,11 @@ background-color: #D6F7CC;
 .col{
   text-align: center;    
 }
+th {
+    width: 150px;
 
-
+}
+thead tr {background-color: #f5f5f5;}
 /* Custom page CSS
 -------------------------------------------------- */
 /* Not required for template or sticky footer method. */

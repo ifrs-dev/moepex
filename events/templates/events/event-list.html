@@ -1,12 +1,20 @@
-{% extends "base.html" %}
+{% extends "event_site/base.html" %}
 
-{% block content %}
+{% block content %}<br>
+	Em avaliação
+    {% for event in inavaliation %}
+        {% include "events/events-table.html" %}
+    {% endfor %}<br>
     Aprovados
     {% for event in approved %}
-        {% include "events-table.html" %}
-    {% endfor %}
+        {% include "events/events-table.html" %}
+    {% endfor %}<br>
     Não Aprovados
     {% for event in notapproved %}
-        {% include "events-table.html" %}
+        {% include "events/events-table.html" %}
+    {% endfor %}<br>
+    Necessita Correção
+    {% for event in incorrections %}
+        {% include "events/events-table.html" %}
     {% endfor %}
 {% endblock content %}
