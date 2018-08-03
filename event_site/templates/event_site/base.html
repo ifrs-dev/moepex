@@ -15,8 +15,8 @@
 
 <body>
 
-    <header>
-      <nav class="navbar navbar-expand-lg navbar-dark bg-green fixed-top">
+  <header>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-green fixed-top">
       <div class="container">
         <a href="{% url 'home' %}"><img class="logo"src="{% static "img/logo.jpg" %}"></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
@@ -24,42 +24,51 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ml-auto">
+            
             {% if request.user.is_superuser %}
-              <li class="nav-item">
-                <a class="nav-link" href="{% url 'event-list' %}">
-                  <i class="far fa-calendar-alt"></i>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="{% url 'admin:index' %}"><i class="fa fa-user"></i></a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="{% url 'logout' %}"><i class="fa fa-sign-out-alt"></i></a>
-              </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'event-list' %}">
+                <i class="far fa-calendar-alt"></i>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'admin:index' %}"><i class="fa fa-user"></i></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'logout' %}"><i class="fa fa-sign-out-alt"></i></a>
+            </li>
             {% else %}
-              <li class="nav-item">
-                <a class="nav-link" href="{% url 'login' %}">
-                  <i class="fas fa-user-lock"></i>
-                </a>
-              </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'login' %}">
+                <i class="fas fa-user-lock"></i>
+              </a>
+            </li>
             {% endif %}
+            {% if not request.user.is_authenticated %}
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'signup' %}">
+                <i class="fas fa-user-plus"></i>
+              </a>
+            </li>
+            {% endif %}
+
           </ul>
         </div>
       </div>
-</nav>
-    </header>
+    </nav>
+  </header>
 
-    <!-- Begin page content -->
-    <main role="main" class="container">
-      {% block content %}
-      {% endblock content %}
-    </main>
+  <!-- Begin page content -->
+  <main role="main" class="container">
+    {% block content %}
+    {% endblock content %}
+  </main>
 
-    <footer class="footer">
-      <div class="row offset-5">
-        <img class="banner_if"src="{% static "img/banner_ifrs.jpg" %}">
-      </div>
-    </footer>
+  <footer class="footer">
+    <div class="row offset-5">
+      <img class="banner_if"src="{% static "img/banner_ifrs.jpg" %}">
+    </div>
+  </footer>
 
 
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
