@@ -3,6 +3,7 @@
 {% load static %}
 
 {% block content %}
+<br>
   <form method="post">
     {% csrf_token %}
     {% for field in form %}
@@ -15,6 +16,16 @@
         {% endfor %}
       </p>
     {% endfor %}
-    <button type="submit">Sign up</button>
+    <button type="submit">Cadastrar</button>
   </form>
+  <br><br>
 {% endblock %}
+{% block js %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
+<script type="text/javascript">
+  $('#id_username').mask('000.000.000-00', {reverse: true});
+</script>
+
+  
+{% endblock js %}
+
