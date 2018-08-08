@@ -11,9 +11,9 @@
         <tbody>
             <tr>
                 <td> <a href="{% url 'event-detail' event.pk %}">{{ event.title }}</a></td>
-                <th>{{ event.start_date }}</th>
-                <th>{{ event.end_date }}</th>
-                <th>{{ event.registration_date }}</th>
+                <td>{{ event.start_date }}</td>
+                <td>{{ event.end_date }}</td>
+                <td>{{ event.registration_date }}</td>
             </tr>
         </tbody>
     </table>

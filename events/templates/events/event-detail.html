@@ -34,4 +34,14 @@
 		<br><b>Descrição do Autor: </b> {{ object.bio_author}}
 	</div>
 </div>
+<br><br>
+<div align="center">
+  {% if not_user %}
+    <button class="btn btn-danger" disabled>Necessário Login Para Inscrição</button>
+  {% elif registred %}
+    <button class="btn btn-success" disabled>Inscrito</button>
+  {% else %}
+    <a href="{% url 'event-registration' object.pk %}" class="btn btn-success btn-info">Realizar Inscrição</a>
+  {% endif %}
+</div>
 {% endblock content %}

@@ -26,9 +26,9 @@ class Event(models.Model):
     start_date = models.DateField(verbose_name='Data de Início')
     end_date = models.DateField(verbose_name='Data Final')
     registration_date = models.DateField(verbose_name='Data de Registro')
-    workload = models.TimeField(default=0, verbose_name='Carga Horária')
+    workload = models.CharField(verbose_name='Carga Horária', max_length=20)
     education = models.CharField(max_length=100, verbose_name='Formação')
-    degree = models.CharField(max_length=100, verbose_name='Titulação')
+    degree = models.CharField(max_length=100, verbose_name='Titulação', default='VII Moepex - Mostra Ensino, Pesquisa e Extensão ')
     vacancies = models.PositiveIntegerField(verbose_name='Vagas')
     
     def __str__(self):

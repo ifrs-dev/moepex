@@ -28,11 +28,18 @@
             {% if request.user.is_superuser %}
             <li class="nav-item">
               <a class="nav-link" href="{% url 'event-list' %}">
-                <i class="far fa-calendar-alt"></i>
+                <i class="fas fa-align-justify"></i>
               </a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="{% url 'admin:index' %}"><i class="fa fa-user"></i></a>
+            </li>
+            {% endif %}
+            {% if request.user.is_authenticated %}
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'my-events' %}">
+                  <i class="far fa-calendar-alt"></i>
+                </a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="{% url 'logout' %}"><i class="fa fa-sign-out-alt"></i></a>
@@ -66,7 +73,7 @@
 
   <footer class="footer">
     <div class="row offset-5">
-      <img class="banner_if"src="{% static "img/banner_ifrs.jpg" %}">
+      <img class="banner_if" src="{% static "img/banner_ifrs.jpg" %}">
     </div>
   </footer>
 

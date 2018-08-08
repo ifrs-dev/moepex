@@ -3,6 +3,7 @@ from django.contrib.auth import views as auth_views
 from django.urls import path
 from django.conf.urls.static import static
 from django.conf import settings
+from django.contrib.auth.decorators import login_required
 
 from event_site import views as views_event_site
 from events import views as views_events
@@ -11,10 +12,12 @@ from events import views as views_events
 urlpatterns = [
     path('', views_events.HomeView.as_view(), name='home'),
     path('eventos/novo', views_events.EventCreateView.as_view(), name='event-create'),
+    path('evento/<int:pk>/', views_events.EventDetailView.as_view(), name='event-detail'),
+    path('evento/<int:pk>/inscricao/', login_required(views_events.EventRegistrationView.as_view()), name="event-registration"),
+    path('eventos/meus/', login_required(views_events.MyRegistrationsListView.as_view()), name="my-events"),
     path('signup/', views_event_site.signup, name='signup'),
     path('login/', auth_views.LoginView.as_view(), name="login"),
 	path('logout/', auth_views.logout, {'next_page': '/login/'}, name="logout"),
-    path('evento/<int:pk>/', views_events.EventDetailView.as_view(), name='event-detail'),
     path('dashboard/eventos/', views_events.EventListView.as_view(), name='event-list'),
     path('admin/', admin.site.urls),
 ]
