@@ -24,13 +24,8 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ml-auto">
-            
+
             {% if request.user.is_superuser %}
-            <li class="nav-item">
-              <a class="nav-link" href="{% url 'event-list' %}">
-                <i class="fas fa-align-justify"></i>
-              </a>
-            </li>
             <li class="nav-item">
               <a class="nav-link" href="{% url 'admin:index' %}"><i class="fa fa-user"></i></a>
             </li>
@@ -83,7 +78,7 @@
   <script src="{% static 'js/bootstrap.min.js' %}"></script>
   <script src="{% static 'js/main.js' %}"></script>
   {% block js %}
-    
+
   {% endblock js %}
 </body>
 

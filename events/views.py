@@ -2,7 +2,7 @@ from django.views.generic.edit import CreateView
 from django.views.generic import View, ListView, DetailView
 from django.shortcuts import redirect
 
-from events.models import Event, Registration
+from events.models import Event, Registration, Group
 from events.forms import EventForm
 
 
@@ -24,6 +24,7 @@ class EventDetailView(DetailView):
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data()
         user = self.request.user
+        context['groups'] = Group.objects.filter(event=self.get_object())
         try:
             events = Registration.objects.filter(event=self.get_object(), user=user)
             if events.exists():
@@ -34,18 +35,6 @@ class EventDetailView(DetailView):
             context['not_user'] = True
         return context
 
-
-class EventListView(ListView):
-    model = Event
-    template_name = 'events/event-list.html'
-
-    def get_context_data(self, *args, **kwargs):
-        context = super().get_context_data(*args, **kwargs)
-        context['inavaliation'] = Event.objects.filter(status=1)
-        context['approved'] = Event.objects.filter(status=2)
-        context['incorrections'] = Event.objects.filter(status=3)
-        context['notapproved'] = Event.objects.filter(status=4)
-        return context
 
 class EventRegistrationView(DetailView):
     model = Event
