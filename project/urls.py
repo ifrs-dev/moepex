@@ -12,6 +12,8 @@ from events import views as views_events
 urlpatterns = [
     path('', views_events.HomeView.as_view(), name='home'),
     path('admin/', admin.site.urls),
+    path('experimento/<int:pk>/', views_events.ExperimentDetailView.as_view(), name='experiment-detail'),
+    path('experimento/novo/', views_events.ExperimentCreateView.as_view(), name='experiment-create'),
     path('evento/<int:pk>/', views_events.EventDetailView.as_view(), name='event-detail'),
     path('evento/<int:pk>/inscricao/', login_required(views_events.EventRegistrationView.as_view()), name="event-registration"),
     path('eventos/meus/', login_required(views_events.MyRegistrationsListView.as_view()), name="my-events"),
