@@ -79,6 +79,7 @@ class Group(models.Model):
     shift = models.PositiveIntegerField(choices=CHOICES_SHIFTS, verbose_name='Turno')
     date = models.DateField(verbose_name='Data')
     local = models.CharField(max_length=100, verbose_name='Local')
+    experiment = models.ForeignKey(Experiment, on_delete=models.PROTECT)
 
     def __str__(self):
         return self.event.title + ' - Turma ' + str(self.id)

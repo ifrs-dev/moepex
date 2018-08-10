@@ -1,0 +1,8 @@
+{% extends "event_site/base.html" %}
+{% block content %}
+	<form>
+		{% csrf_token %}
+		{{ form.as_p }}
+		<input type="submit" value="Salvar">
+	</form>
+{% endblock content %}
