@@ -31,11 +31,6 @@
             </li>
             {% endif %}
             {% if request.user.is_authenticated %}
-              <li class="nav-item">
-                <a class="nav-link" href="{% url 'my-events' %}">
-                  <i class="far fa-calendar-alt"></i>
-                </a>
-            </li>
             <li class="nav-item">
               <a class="nav-link" href="{% url 'logout' %}"><i class="fa fa-sign-out-alt"></i></a>
             </li>

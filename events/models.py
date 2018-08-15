@@ -45,6 +45,8 @@ class Experiment(models.Model):
 
     def __str__(self):
         return self.title
+    def get_author(self):
+        return ', '.join([u.get_full_name() for u in self.authors.all()])
 
 
 
@@ -68,6 +70,8 @@ class Event(models.Model):
     def __str__(self):
         return self.title
 
+    def get_author(self):
+        return ', '.join([u.get_full_name() for u in self.authors.all()])
 
 class Group(models.Model):
 

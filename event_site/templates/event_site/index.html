@@ -62,19 +62,16 @@
 			<thead>
 				<tr>
 					<th>Título</th>
-					<th>Data</th>
-					<th>Turno</th>
-					<th>Vagas</th>
+					<th>Autores</th>
 				</tr>
 			</thead>
 			<tbody>
 			
-			{% for event in object_list %}
+			{% for event in events %}
 				<tr>
 					<td> <a href="{% url 'event-detail' event.pk %}">{{ event.title }}</a></td>
-					<td>{{ event.get_status_display }}</td>
-					<td>{{ event.vacancies }}</td>
-					<td>{{ event.vacancies }}</td>
+					<td>{{ event.get_author }}</td>
+					
 				</tr>
 			{% endfor %}
 			</tbody>
@@ -86,18 +83,14 @@
 			<thead>
 				<tr>
 					<th>Título</th>
-					<th>Data</th>
-					<th>Turno</th>
-					<th>Vagas</th>
+					<th>Autores</th>
 				</tr>
 			</thead>
 			<tbody>
-			{% for event in object_list %}
+			{% for experiment in experiments %}
 				<tr>
-					<td> <a href="{% url 'event-detail' event.pk %}">{{ event.title }}</a></td>
-					<td>{{ event.get_status_display }}</td>
-					<td>{{ event.vacancies }}</td>
-					<td>{{ event.vacancies }}</td>
+					<td> <a href="{% url 'experiment-detail' experiment.pk %}">{{ experiment.title }}</a></td>
+					<td>{{ experiment.get_author }}</td>
 				</tr>
 			{% endfor %}
 			</tbody>
