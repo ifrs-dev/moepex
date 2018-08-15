@@ -46,7 +46,7 @@
 		</div>
 		<div class="col-md-3 text-center">
 			<span class="fas fa-table fa-5x"> </span>
-			<h3>Banners</h3>
+			<h3>Experimentos</h3>
 		</div>
 		<div class="col-md-3 text-center">
 			<span class="fas fa-times fa-5x"> </span>
@@ -73,6 +73,27 @@
 					<td> <a href="{% url 'event-detail' event.pk %}">{{ event.title }}</a></td>
 					<td>{{ event.get_status_display }}</td>
 					<td>{{ event.vacancies }}</td>
+				</tr>
+			{% endfor %}
+			</tbody>
+		</table>
+	</div><br><br>
+	<div class="container">
+		<h2>Experimentos</h2>           
+		<table class="table">
+			<thead>
+				<tr>
+					<th>Nome</th>
+					<th>Status</th>
+					<th>Vagas</th>
+				</tr>
+			</thead>
+			<tbody>
+			
+			{% for experiment in object_list %}
+				<tr>
+					<td> <a href="{% url 'experiment-detail' experiment.pk %}">{{ experiment.title }}</a></td>
+					
 				</tr>
 			{% endfor %}
 			</tbody>

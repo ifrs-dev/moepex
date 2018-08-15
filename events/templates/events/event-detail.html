@@ -2,7 +2,6 @@
 {% load static %}
 
 {% block content %}
-<br><br><br><br>
 <div align="center">
 	<h4>{{ object.title }}</h4>
 </div>
@@ -10,17 +9,14 @@
 <div class="container">
 	<div class="row">
 		<div class="col-8">
-			<b>Status: </b> {{ object.get_status_display }}   
-			<br><b>Vagas: </b> {{ object.vacancies}}
-			<br><b>Local: </b> {{ object.local }}
-			<br><b>Formação: </b> {{ object.education}}
-			<br><b>Titulação: </b> {{ object.degree}}
+			<b>Autores: </b> {{ object.authors }}
+			<b>Objetivo: </b> {{ object.goal }}
+			<b>Público Alvo: </b> {{ object.public }}
+			<b>Vagas: </b> {{ object.vacancies }}
+			<b>Pré-requisitos: </b> {{ object.requirements}}
 		</div>
 
 		<div class="col-4">
-			<b>Data de Inscrição: </b> {{ object.registration_date}}
-			<br><b>Data Inicial: </b> {{ object.start_date}}
-			<br><b>Data Final: </b> {{ object.end_date}}
 			<br><b>Carga Horária: </b> {{ object.workload}}
 		</div>
 	</div>
@@ -29,9 +25,6 @@
 <div class="row">
 	<div class="col-8">  
 		<br><b>Descrição: </b> {{ object.description }}
-	</div>
-	<div class="col-4">
-		<br><b>Descrição do Autor: </b> {{ object.bio_author}}
 	</div>
 </div>
 <br><br><br>
@@ -42,20 +35,25 @@
 				<tr>
 					<th>Turma</th>
 					<th>Turno</th>
+					<th>Inscrição</th>
 				</tr>
 			</thead>
 			<tbody>
+				{% for group in groups %}
+					
 				<tr>
-					<td><a href="#">{{ group.event.local }}</a></td>
+					<td>{{ group }}</td>
+					<td>{{ group.get_shift_display }}</td>
 					<td>{% if not_user %}
 						<button class="btn btn-danger" disabled>Necessário Login Para Inscrição</button>
 						{% elif registred %}
 						<button class="btn btn-success" disabled>Inscrito</button>
 						{% else %}
 
-						<a href="{% url 'event-registration' object.pk %}" class="btn btn-success btn-info">Realizar Inscrição</a>
+						<a href="{% url 'event-registration' group.pk %}" class="btn btn-success btn-info">Realizar Inscrição</a>
 					{% endif %}</td>
 				</tr>
+				{% endfor %}
 			</tbody>
 		</table>
 	</div>

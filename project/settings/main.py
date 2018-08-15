@@ -29,6 +29,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'event_site',
     'events',
+    'bootstrapform',
 ]
 
 MIDDLEWARE = [

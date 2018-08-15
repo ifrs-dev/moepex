@@ -35,28 +35,4 @@
 	</div>
 </div>
 <br><br><br>
-<div align="center">
-	<div class="container">          
-		<table class="table">
-			<thead>
-				<tr>
-					<th>Turma</th>
-					<th>Turno</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-					<td><a href="#">{{ group.event.local }}</a></td>
-					<td>{% if not_user %}
-						<button class="btn btn-danger" disabled>Necessário Login Para Inscrição</button>
-						{% elif registred %}
-						<button class="btn btn-success" disabled>Inscrito</button>
-						{% else %}
-
-						<a href="{% url 'event-registration' object.pk %}" class="btn btn-success btn-info">Realizar Inscrição</a>
-					{% endif %}</td>
-				</tr>
-			</tbody>
-		</table>
-	</div>
 	{% endblock content %}
