@@ -96,35 +96,6 @@
 			</tbody>
 		</table>
 	</div><br><br>
-	<div class="container">
-		<h2>Experimentos</h2>           
-		<table class="table">
-			<thead>
-				<tr>
-					<th>Nome</th>
-					<th>Status</th>
-					<th>Vagas</th>
-				</tr>
-			</thead>
-			<tbody>
-			
-			{% for experiment in object_list %}
-				<tr>
-					<td> <a href="{% url 'experiment-detail' experiment.pk %}">{{ experiment.title }}</a></td>
-					
-				</tr>
-			{% endfor %}
-			</tbody>
-		</table>
-	</div><br><br>
-	<div class="row">
-		<div class="col"><i class="fas fa-school fa-3x"></i></div>
-		<div class="col"><i class="fas fa-school fa-3x"></i></div>
-		<div class="col"><i class="fas fa-school fa-3x"></i></div>
-		<div class="col"><i class="fas fa-school fa-3x"></i></div>  
-		<div class="col"><i class="fas fa-school fa-3x"></i></div>
-		<div class="col"><i class="fas fa-school fa-3x"></i></div>
-	</div>
 </div><br>
 <br><br>
 

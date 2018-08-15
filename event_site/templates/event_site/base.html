@@ -36,11 +36,6 @@
                   <i class="fas fa-calendar-plus"></i>
                 </a>
             </li>
-              <li class="nav-item">
-                <a class="nav-link" href="{% url 'my-events' %}" title="Meus eventos">
-                  <i class="far fa-calendar-alt"></i>
-                </a>
-            </li>
             {% endif %}
             {% if request.user.is_authenticated %}
             <li class="nav-item">
