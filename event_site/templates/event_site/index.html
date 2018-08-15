@@ -57,22 +57,40 @@
 		Mussum Ipsum, cacilds vidis litro abertis. Atirei o pau no gatis, per gatis num morreus. Delegadis gente finis, bibendum egestas augue arcu ut est. Quem manda na minha terra sou euzis! Não sou faixa preta cumpadi, sou preto inteiris, inteiris. Mussum Ipsum, cacilds vidis litro abertis. Em pé sem cair, deitado sem dormir, sentado sem cochilar e fazendo pose. Delegadis gente finis, bibendum egestas augue arcu ut est. Posuere libero varius. Nullam a nisl ut ante blandit hendrerit. Aenean sit amet nisi. Suco de cevadiss, é um leite divinis, qui tem lupuliz, matis, aguis e fermentis. 
 	</div><br><br>
 	<div class="container">
-		<h2>Eventos</h2>           
+		<h2>Minicursos</h2>           
 		<table class="table">
 			<thead>
 				<tr>
-					<th>Nome</th>
-					<th>Status</th>
-					<th>Vagas</th>
+					<th>Título</th>
+					<th>Autores</th>
 				</tr>
 			</thead>
 			<tbody>
 			
-			{% for event in object_list %}
+			{% for event in events %}
 				<tr>
 					<td> <a href="{% url 'event-detail' event.pk %}">{{ event.title }}</a></td>
-					<td>{{ event.get_status_display }}</td>
-					<td>{{ event.vacancies }}</td>
+					<td>{{ event.get_author }}</td>
+					
+				</tr>
+			{% endfor %}
+			</tbody>
+		</table>
+	</div>
+	<div class="container">
+		<h2>Experimentos</h2>           
+		<table class="table">
+			<thead>
+				<tr>
+					<th>Título</th>
+					<th>Autores</th>
+				</tr>
+			</thead>
+			<tbody>
+			{% for experiment in experiments %}
+				<tr>
+					<td> <a href="{% url 'experiment-detail' experiment.pk %}">{{ experiment.title }}</a></td>
+					<td>{{ experiment.get_author }}</td>
 				</tr>
 			{% endfor %}
 			</tbody>

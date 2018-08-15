@@ -38,6 +38,9 @@
 
         <input type="submit" class="btn btn-info btn-lg btn-block" value="Entrar">
         <input type="hidden" name="next" value="{{ next }}" />
+        <br>
+        <a class="btn btn-info btn-lg btn-block" href="/signup/">Cadastrar</a>
+
     </div>
 </div>
 
@@ -49,6 +52,13 @@
 {% endcomment %}
 
 {% endblock %}
+
+{% block js %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
+<script type="text/javascript">
+  $('#id_username').mask('000.000.000-00', {reverse: true});
+</script>
+{% endblock js %}
 
 {% block script %}
     <script type="text/javascript">

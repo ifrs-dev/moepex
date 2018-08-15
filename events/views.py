@@ -22,6 +22,11 @@ class ExperimentCreateView(CreateView):
 class HomeView(ListView):
     model = Event
     template_name = 'event_site/index.html'
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data()
+        context['experiments'] = Experiment.objects.filter(status=2)
+        context['events'] = Event.objects.filter(status=2)
+        return context
 
 class EventListView(ListView):
     model = Event
@@ -57,20 +62,5 @@ class ExperimentDetailView(DetailView):
     template_name = 'experiments/experiment-detail.html'
 
 
-
-class EventRegistrationView(DetailView):
-    model = Event
-
-    def get(self, request, *args, **kwargs):
-        Registration.objects.create(event=self.get_object(), user=request.user)
-        return redirect('my-events')
-
-class MyRegistrationsListView(ListView):
-    model = Registration
-    template_name = 'events/my_events.html'
-
-    def get_queryset(self):
-        objects = Registration.objects.filter(user=self.request.user)
-        return objects.order_by('event__start_date')
 
 

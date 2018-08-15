@@ -21,8 +21,8 @@ class SignUpForm(UserCreationForm):
         fields = ('username', 'first_name', 'last_name', 'email', 'password1', 'password2', )
 
     def clean_username(self):
-        value = self.cleaned_data['username']
-        
+        cpf = self.cleaned_data['username']
+        value = cpf
         if not value.isdigit():
             value = re.sub("[-\.]", "", value)
         orig_value = value[:]
@@ -43,4 +43,4 @@ class SignUpForm(UserCreationForm):
         if value[-2:] != orig_dv:
             raise forms.ValidationError("CPF Inválido!")
 
-        return value
+        return cpf
