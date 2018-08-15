@@ -46,21 +46,34 @@ class EventDetailView(DetailView):
         context = super().get_context_data()
         user = self.request.user
         context['groups'] = Group.objects.filter(event=self.get_object())
-        context['not_user'] = False
-        try:
-            events = Registration.objects.filter(event=self.get_object(), user=user)
-            if events.exists():
-                context['registred'] = True
-            else:
-                context['registred'] = False
-        except:
-            context['not_user'] = True
+
+        if not user.is_authenticated:
+            context['registred'] = 'not_user'
+        else:
+            try:
+                events = Registration.objects.filter(event=self.get_object(), user=user)
+                if events.exists():
+                    context['registred'] = 'valid'
+            except:
+                pass
         return context
 
 class ExperimentDetailView(DetailView):
     model = Experiment
     template_name = 'experiments/experiment-detail.html'
 
+class EventRegistrationView(DetailView):
+    model = Group
+
+    def get(self, request, *args, **kwargs):
+        Registration.objects.create(group=self.get_object(), user=request.user)
+        return redirect('my-events')
 
 
+class MyRegistrationsListView(ListView):
+    model = Registration
+    template_name = 'events/my-events.html'
 
+    def get_queryset(self):
+        objects = Registration.objects.filter(user=self.request.user)
+        return objects
