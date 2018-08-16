@@ -1,0 +1,3 @@
+-r ./requeriments.txt
+gunicorn
+psycopg2-binary

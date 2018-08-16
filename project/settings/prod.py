@@ -2,16 +2,17 @@ from .main import *
 
 DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['192.168.56.41']
 
 DATABASES = {
     'default': {
-        'ENGINE': '',
-        'NAME': '',
-        'USER': '',
-        'PASSWORD': '',
-        'HOST': '',
-        'PORT': '',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'moepex',
+        'USER': 'moepex',
+        'PASSWORD': 'moepex',
+        'CONN_MAX_AGE': 60,
+        'HOST': '127.0.0.1',
+        'PORT': '5432',
     }
 }
 

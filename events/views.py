@@ -55,7 +55,7 @@ class EventDetailView(DetailView):
             context['registred'] = 'not_user'
         else:
             try:
-                events = Registration.objects.filter(event=self.get_object(), user=user)
+                events = Registration.objects.filter(group__event=self.get_object(), user=user)
                 if events.exists():
                     context['registred'] = 'valid'
             except:
@@ -73,18 +73,9 @@ class EventRegistrationView(DetailView):
 
     def get(self, request, *args, **kwargs):
         Registration.objects.create(group=self.get_object(), user=request.user)
-        return redirect('my-events')
+        return redirect('event-detail', self.get_object().event.pk)
 
 
 class MyRegistrationsListView(ListView):
     model = Registration
     template_name = 'events/my-events.html'
-
-    def get_queryset(self):
-        return Registration.objects.filter(user=self.request.user)
-
-    def get_context_data(self, *args, **kwargs):
-        context = super().get_context_data()
-        context['events'] = Event.objects.filter(authors__icontains=self.request.user)
-        context['experiments'] = Experiment.objects.filter(authors__icontains=self.request.user)
-        return context

@@ -36,7 +36,7 @@ class Experiment(models.Model):
     description = models.TextField(verbose_name='Resumo', help_text='Paragráfo único com no máximo 100 palavras.')
     goal = models.TextField(verbose_name='Objetivo')
     status = models.IntegerField(choices=CHOICES_STATUS_EVENT, default=1, verbose_name='Status')
-    authors = models.ManyToManyField(User, verbose_name='Autores')
+    authors = models.ManyToManyField(User, verbose_name='Autores', related_name='experiments')
 
     def __str__(self):
         return self.title
@@ -59,7 +59,7 @@ class Event(models.Model):
     requirements = models.TextField(verbose_name='Pré-requisitos', blank=True, null=True)
     materials = models.TextField(verbose_name='Material Necessário', blank=True, null=True)
     workload = models.PositiveIntegerField(verbose_name='Carga Horária', choices=CHOICES_WORKLOADS)
-    authors = models.ManyToManyField(User, verbose_name='Autores')
+    authors = models.ManyToManyField(User, verbose_name='Autores', related_name='events')
     status = models.IntegerField(choices=CHOICES_STATUS_EVENT, default=1, verbose_name='Status')
 
     def __str__(self):
@@ -91,7 +91,7 @@ class Registration(models.Model):
         verbose_name_plural = 'Inscrições'
 
     group = models.ForeignKey(Group, on_delete=models.PROTECT)
-    user = models.ForeignKey(User, on_delete=models.PROTECT)
+    user = models.ForeignKey(User, on_delete=models.PROTECT, related_name='registrations')
     status = models.IntegerField(choices=CHOICES_STATUS_REGISTRATION, default=1)
 
     def __str__(self):

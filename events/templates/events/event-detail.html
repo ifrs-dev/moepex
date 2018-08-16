@@ -21,7 +21,9 @@
           <thead>
             <tr>
               <th>Turma</th>
+              <th>Data</th>
               <th>Turno</th>
+              <th>Local</th>
               <th>Inscrição</th>
             </tr>
           </thead>
@@ -29,7 +31,9 @@
             {% for group in groups %}
               <tr>
                 <td>{{ group }}</td>
+                <td>{{ group.date }}</td>
                 <td>{{ group.get_shift_display }}</td>
+                <td>{{ group.local }}</td>
                 <td>
                   {% if registred == 'not_user' %}
                     <button class="btn btn-danger" disabled>Necessário Login Para Inscrição</button>

@@ -5,27 +5,55 @@
 <section>
   <div class="container">
     <h1>Meus eventos</h1>
+    <hr>
     <div class="row">
       <div class="col-md-6">
-        <hr>
         <h3>Minhas Inscrições</h3>
-        {% for obj in object_list %}
-          {{ obj }}
-        {% endfor %}
-        <hr>
+        <table class="table">
+          <thead>
+            <th>Turma</th>
+            <th>Data</th>
+            <th>Local</th>
+          </thead>
+          <tbody>
+            {% for obj in request.user.registrations.all %}
+              <tr>
+                <td>{{ obj.group }}</td>
+                <td>{{ obj.group.date }}</td>
+                <td>{{ obj.group.local }}</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
       </div>
       <div class="col-md-6">
-        <hr>
         <h3>Minhas Submissões</h3>
-        {% for event in events %}
-          {{ event }}
-        {% endfor %}
-        {% for experiment in experiments %}
-          {{ experiment }}
-        {% endfor %}
-        <hr>
+        <table class="table">
+          <thead>
+            <th>Título</th>
+            <th>Tipo</th>
+            <th>Status</th>
+          </thead>
+          <tbody>
+            {% for event in request.user.events.all %}
+              <tr>
+                <td>{{ event.title }}</td>
+                <td>Minicurso</td>
+                <td>{{ event.get_status_display }}</td>
+              </tr>
+            {% endfor %}
+            {% for experiment in request.user.experiments.all %}
+              <tr>
+                <td>{{ experiment.title }}</td>
+                <td>Experimento</td>
+                <td>{{ experiment.get_status_display }}</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
       </div>
     </div>
+    <hr>
   </div>
 </section>
 

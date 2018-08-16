@@ -1,30 +1,36 @@
+{% extends "event_site/base.html" %}
 
-{% extends 'event_site/base.html' %}
-{% load static %}
+{% load bootstrap %}
+
+{% block jumbotron %}{% endblock jumbotron %}
 
 {% block content %}
-<br>
-  <form method="post">
+
+    <form method="post" action="{% url 'login' %}">
+
     {% csrf_token %}
-    {% for field in form %}
-      <p>
-        {{ field.label_tag }}<br>
-        {{ field }}
-        
-        {% for error in field.errors %}
-          <p style="color: red">{{ error }}</p>
-        {% endfor %}
-      </p>
-    {% endfor %}
-    <button type="submit">Cadastrar</button>
+
+   <section>
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6 col-md-offset-3">
+            <h3>Cadastro de particiante externo</h3>
+            <p>Caso seja um aluno regular, não é ncessário realizar o cadastro, seus dados de acesso são CPF e a senha é seu número de matrícula. Caso seja professor ou técnico administrativo, sua senha é o seu número de SIAP. <a href="{% url 'login' %}">Clique aqui para realizar o login</a></p>
+            {{ form|bootstrap }}
+            <button type="submit">Cadastrar</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
   </form>
-  <br><br>
+
 {% endblock %}
+
 {% block js %}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
 <script type="text/javascript">
   $('#id_username').mask('000.000.000-00', {reverse: true});
 </script>
-
 {% endblock js %}
 

@@ -13,11 +13,13 @@ urlpatterns = [
     path('', views_events.HomeView.as_view(), name='home'),
     path('apresentacao', views_event_site.PresentationTemplateView.as_view(), name='presentation'),
     path('experimento/<int:pk>/', views_events.ExperimentDetailView.as_view(), name='experiment-detail'),
-    path('experimento/novo/', views_events.ExperimentCreateView.as_view(), name='experiment-create'),
     path('minicurso/<int:pk>/', views_events.EventDetailView.as_view(), name='event-detail'),
-    path('minicurso/<int:pk/novo/', views_events.EventCreateView.as_view(), name='event-create'),
+
+    path('meus-eventos/', login_required(views_events.MyRegistrationsListView.as_view()), name='my-events'),
+    path('experimento/novo/', login_required(views_events.ExperimentCreateView.as_view()), name='experiment-create'),
+    path('minicurso/<int:pk/novo/', login_required(views_events.EventCreateView.as_view()), name='event-create'),
     path('minicurso/inscricao/<int:pk>/', login_required(views_events.EventRegistrationView.as_view()), name="event-registration"),
-    path('meus-eventos/', views_events.MyRegistrationsListView.as_view(), name='my-events'),
+
     path('login/', auth_views.LoginView.as_view(), name="login"),
     path('logout/', auth_views.LogoutView.as_view(), {'next_page': '/login/'}, name="logout"),
     path('signup/', views_event_site.SignUpView.as_view(), name='signup'),

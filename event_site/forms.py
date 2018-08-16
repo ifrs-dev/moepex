@@ -14,7 +14,8 @@ class SignUpForm(UserCreationForm):
 
     def __init__(self, *args, **kwargs):
         super(SignUpForm, self).__init__(*args, **kwargs)
-        self.fields['username'].label="CPF"
+        self.fields['username'].label = 'CPF'
+        self.fields['username'].help_text = None
 
     class Meta:
         model = User
