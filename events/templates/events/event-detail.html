@@ -38,6 +38,8 @@
                 <td>
                   {% if registred == 'not_user' %}
                     <button class="btn btn-danger" disabled>Necessário Login Para Inscrição</button>
+                  {% elif group.registrations > group.vacancies %}
+                    <button class="btn btn-danger" disabled>Esgotado</button>
                   {% elif registred == 'valid' %}
                     <button class="btn btn-success" disabled>Inscrito</button>
                   {% else %}
