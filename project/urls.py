@@ -14,6 +14,8 @@ urlpatterns = [
     path('apresentacao', views_event_site.PresentationTemplateView.as_view(), name='presentation'),
     path('experimento/<int:pk>/', views_events.ExperimentDetailView.as_view(), name='experiment-detail'),
     path('minicurso/<int:pk>/', views_events.EventDetailView.as_view(), name='event-detail'),
+    path('turmas/<int:pk>/', views_events.GroupDetailView.as_view(), name='group-detail'),
+    path('turma/novo/', views_events.GroupCreateView.as_view(), name='group-create'),
 
     path('meus-eventos/', login_required(views_events.MyRegistrationsListView.as_view()), name='my-events'),
     path('experimento/novo/', login_required(views_events.ExperimentCreateView.as_view()), name='experiment-create'),

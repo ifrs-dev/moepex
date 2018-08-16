@@ -25,6 +25,7 @@
               <th>Turno</th>
               <th>Local</th>
               <th>Inscrição</th>
+              <th><a href="{% url 'group-create' %}" class="btnn">Adicionar Turma</a></th>
             </tr>
           </thead>
           <tbody>
@@ -37,6 +38,8 @@
                 <td>
                   {% if registred == 'not_user' %}
                     <button class="btn btn-danger" disabled>Necessário Login Para Inscrição</button>
+                  {% elif group.registrations > group.vacancies %}
+                    <button class="btn btn-danger" disabled>Esgotado</button>
                   {% elif registred == 'valid' %}
                     <button class="btn btn-success" disabled>Inscrito</button>
                   {% else %}
