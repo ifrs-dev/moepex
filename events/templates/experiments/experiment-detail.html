@@ -2,28 +2,12 @@
 {% load static %}
 
 {% block content %}
-<br><br><br><br>
-<div align="center">
-	<h4>{{ object.title }}</h4>
-</div>
-<br>
-<div class="container">
-	<div class="row">
-		<div class="col-8">
-			<b>Status: </b>{{ object.get_status_display }}<br>
-			<b>Autores: </b> {{ object.get_author }}<br>
-		</div>
-	</div>
-</div>
-<div class="container">
-	<div class="row">
-		<div class="col-8">  
-			<br><b>Objetivo</b><br> 
-			{{ object.goal }}
-		</div>
-		<div class="col-4">
-			<br><b>Descrição: </b> {{ object.description}}
-		</div>
-	</div>
-</div>
+  <section>
+    <div class="container">
+      <h2>{{ object.title }}</h2>
+      <p><h4>Autores:</h4> {{ object.get_author }}</p>
+      <p><h4>Objetivos:</h4> {{ object.goal }}</p>
+      <p><h4>Descrição:</h4> {{ object.description}}</p>
+    </div>
+  </section>
 {% endblock content %}

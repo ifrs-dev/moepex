@@ -2,58 +2,47 @@
 {% load static %}
 
 {% block content %}
-<div align="center">
-	<h4>{{ object.title }}</h4>
-</div>
-<br>
-<div class="container">
-	<div class="row">
-		<div class="col-8">
-			<b>Autores: </b> {{ object.authors }}
-			<b>Objetivo: </b> {{ object.goal }}
-			<b>Público Alvo: </b> {{ object.public }}
-			<b>Vagas: </b> {{ object.vacancies }}
-			<b>Pré-requisitos: </b> {{ object.requirements}}
-		</div>
-
-		<div class="col-4">
-			<br><b>Carga Horária: </b> {{ object.workload}}
-		</div>
-	</div>
-</div>
-<br>
-<div class="row">
-	<div class="col-8">  
-		<br><b>Descrição: </b> {{ object.description }}
-	</div>
-</div>
-<br><br><br>
-<div align="center">
-	<div class="container">        
-		<table class="table">
-			<thead>
-				<tr>
-					<th>Turma</th>
-					<th>Turno</th>
-					<th>Inscrição</th>
-				</tr>
-			</thead>
-			<tbody>
-				{% for group in groups %}
-					
-				<tr>
-					<td>{{ group }}</td>
-					<td>{{ group.get_shift_display }}</td>
-					<td>{% if registred == 'not_user' %}
-						<button class="btn btn-danger" disabled>Necessário Login Para Inscrição</button>
-						{% elif registred == 'valid' %}
-						<button class="btn btn-success" disabled>Inscrito</button>
-						{% else %}
-						<a href="{% url 'event-registration' group.pk %}" class="btn btn-success btn-info">Realizar Inscrição</a>
-					{% endif %}</td>
-				</tr>
-				{% endfor %}
-			</tbody>
-		</table>
-	</div>
-	{% endblock content %}
+  <section>
+    <div class="container">
+      <h2 center>{{ object.title }}</h2>
+      <div class="row">
+        <div class="col-md-6">
+          <p><h4>Autores:</h4> {{ object.get_author }}</p>
+          <p><h4>Objetivos:</h4> {{ object.goal }}</p>
+          <p><h4>Descrição:</h4> {{ object.description}}</p>
+        </div>
+        <div class="col-md-6">
+          <p><h4>Público Alvo:</h4> {{ object.public }}</p>
+          <p><h4>Pré-requisitos:</h4> {{ object.requirements }}</p>
+          <p><h4>Carga Horária:</h4> {{ object.workload }}</p>
+          <p><h4>Vagas:</h4> {{ object.vacancies }}</p>
+        </div>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Turma</th>
+              <th>Turno</th>
+              <th>Inscrição</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for group in groups %}
+              <tr>
+                <td>{{ group }}</td>
+                <td>{{ group.get_shift_display }}</td>
+                <td>
+                  {% if registred == 'not_user' %}
+                    <button class="btn btn-danger" disabled>Necessário Login Para Inscrição</button>
+                  {% elif registred == 'valid' %}
+                    <button class="btn btn-success" disabled>Inscrito</button>
+                  {% else %}
+                    <a href="{% url 'event-registration' group.pk %}" class="btn btn-success btn-info">Realizar Inscrição</a>
+                {% endif %}</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+{% endblock content %}

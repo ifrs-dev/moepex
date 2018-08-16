@@ -5,8 +5,8 @@ from django.urls import reverse_lazy
 from event_site.forms import SignUpForm
 
 
-class SiteTemplateView(TemplateView):
-    template_name = 'event_site/index.html'
+class PresentationTemplateView(TemplateView):
+    template_name = 'event_site/presentation.html'
 
 
 class SignUpView (CreateView):

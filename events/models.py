@@ -14,11 +14,6 @@ CHOICES_STATUS_REGISTRATION = (
     (3, "Ausente"),
 )
 
-CHOICES_ROLE = (
-    (1, "Ouvinte"),
-    (2, "Ministrante"),
-)
-
 CHOICES_WORKLOADS = (
     (1, '2 horas'),
     (2, '4 horas'),
@@ -38,10 +33,10 @@ class Experiment(models.Model):
         verbose_name_plural = "Experimentos"
 
     title = models.CharField(max_length=200, verbose_name='Título')
-    description = models.TextField(verbose_name='Resumo')
-    authors = models.ManyToManyField(User, verbose_name='Autores')
+    description = models.TextField(verbose_name='Resumo', help_text='Paragráfo único com no máximo 100 palavras.')
     goal = models.TextField(verbose_name='Objetivo')
     status = models.IntegerField(choices=CHOICES_STATUS_EVENT, default=1, verbose_name='Status')
+    authors = models.ManyToManyField(User, verbose_name='Autores')
 
     def __str__(self):
         return self.title
@@ -57,14 +52,14 @@ class Event(models.Model):
         verbose_name_plural = 'Minicursos'
 
     title = models.CharField(max_length=200, verbose_name='Título')
-    description = models.TextField(verbose_name='Resumo')
-    authors = models.ManyToManyField(User, verbose_name='Autores')
+    description = models.TextField(verbose_name='Resumo', help_text='Paragráfo único com no máximo 50 palavras.')
     goal = models.TextField(verbose_name='Objetivo')
     public = models.CharField(max_length=200, verbose_name='Público Alvo')
     vacancies = models.PositiveIntegerField(verbose_name='Número Máximo de Participantes')
     requirements = models.TextField(verbose_name='Pré-requisitos', blank=True, null=True)
     materials = models.TextField(verbose_name='Material Necessário', blank=True, null=True)
     workload = models.PositiveIntegerField(verbose_name='Carga Horária', choices=CHOICES_WORKLOADS)
+    authors = models.ManyToManyField(User, verbose_name='Autores')
     status = models.IntegerField(choices=CHOICES_STATUS_EVENT, default=1, verbose_name='Status')
 
     def __str__(self):

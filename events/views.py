@@ -2,6 +2,7 @@ from django.views.generic.edit import CreateView
 from django.views.generic import View, ListView, DetailView
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
+from django.contrib.auth.models import User
 
 from events.models import Event, Registration, Group, Experiment
 from events.forms import EventForm, ExperimentForm
@@ -13,28 +14,31 @@ class EventCreateView(CreateView):
     form_class = EventForm
     success_url = reverse_lazy('home')
 
+    def get_initial(self):
+        initial = super().get_initial()
+        initial['authors'] = self.request.user.pk
+        return initial
+
 class ExperimentCreateView(CreateView):
     model = Experiment
-    template_name = 'experiments/experiment-create.html'
+    template_name = 'events/event-create.html'
     form_class = ExperimentForm
     success_url = reverse_lazy('home')
+
+    def get_initial(self):
+        initial = super().get_initial()
+        initial['authors'] = self.request.user.pk
+        return initial
 
 class HomeView(ListView):
     model = Event
     template_name = 'event_site/index.html'
+
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data()
         context['experiments'] = Experiment.objects.filter(status=2)
         context['events'] = Event.objects.filter(status=2)
-        return context
-
-class EventListView(ListView):
-    model = Event
-    
-    def get_context_data(self, *args, **kwargs):
-        context['approved'] = Event.objects.filter(status=2)
-        context['submited'] = Event.objects.filter(status=1)
-        context['notapproved'] = Event.objects.filter(status=3)
+        context['users'] = User.objects.all()
         return context
 
 
@@ -58,9 +62,11 @@ class EventDetailView(DetailView):
                 pass
         return context
 
+
 class ExperimentDetailView(DetailView):
     model = Experiment
     template_name = 'experiments/experiment-detail.html'
+
 
 class EventRegistrationView(DetailView):
     model = Group
@@ -75,5 +81,10 @@ class MyRegistrationsListView(ListView):
     template_name = 'events/my-events.html'
 
     def get_queryset(self):
-        objects = Registration.objects.filter(user=self.request.user)
-        return objects
+        return Registration.objects.filter(user=self.request.user)
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data()
+        context['events'] = Event.objects.filter(authors__icontains=self.request.user)
+        context['experiments'] = Experiment.objects.filter(authors__icontains=self.request.user)
+        return context

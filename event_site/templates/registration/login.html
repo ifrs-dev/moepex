@@ -1,55 +1,38 @@
 {% extends "event_site/base.html" %}
 
 {% block content %}
-<style type="text/css">
-    p{
-    color: red;
-    text-align: center;
-    }
-.form-control{
-    border-color: gray;
-}
-</style>
 
+    <form method="post" action="{% url 'login' %}">
 
-<form method="post" action="{% url 'login' %}">
-{% csrf_token %}
-<br><br><br><br><br>
-<div class="row">
-    <div class="col-4 offset-4">
-        <div class="form-group">
-          <input name="username" type="text" class="form-control" id="id_username" placeholder="CPF">
+    {% csrf_token %}
+
+   <section>
+      <div class="container">
+        <div class="row">
+        <div class="col-md-4 col-md-offset-4">
+            <h1 align="center">Login</h1>
+            <div class="form-group">
+              <input name="username" type="text" class="form-control" id="id_username" placeholder="CPF">
+            </div>
+            <div class="form-group">
+                <input name="password" type="password" class="form-control" id="id_password" placeholder="Senha">
+            </div>
+
+            {% if form.errors %}
+            <p class="text-danger" align="center">
+              Seu CPF e/ou senha estão incorretos, tente novamente
+            </p>
+            {% endif %}
+
+            <input type="submit" class="btn btn-success btn-lg btn-block" value="Entrar">
+            <input type="hidden" name="next" value="{{ next }}" />
+            <br>
+            <p align="center"><a href="/signup/">Cadastrar</a></p>
         </div>
-        <div class="form-group">
-            <input name="password" type="password" class="form-control" id="id_password" placeholder="Senha">
-        </div>
-{% if form.errors %}
-<p>Your username and password didn't match. Please try again.</p>
-{% endif %}
-
-{% if next %}
-    {% if user.is_authenticated %}
-    <p>Your account doesn't have access to this page. To proceed,
-    please login with an account that has access.</p>
-    {% else %}
-    <p>Please login to see this page.</p>
-    {% endif %}
-{% endif %}
-
-        <input type="submit" class="btn btn-info btn-lg btn-block" value="Entrar">
-        <input type="hidden" name="next" value="{{ next }}" />
-        <br>
-        <a class="btn btn-info btn-lg btn-block" href="/signup/">Cadastrar</a>
-
     </div>
-</div>
-
-</form>
-
-{# Assumes you setup the password_reset view in your URLconf #}
-{% comment %}
-    <p><a href="{% url 'password_reset' %}">Lost password?</a></p>
-{% endcomment %}
+  </div>
+</section>
+    </form>
 
 {% endblock %}
 
