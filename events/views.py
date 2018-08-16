@@ -5,14 +5,14 @@ from django.urls import reverse_lazy
 from django.contrib.auth.models import User
 
 from events.models import Event, Registration, Group, Experiment
-from events.forms import EventForm, ExperimentForm
+from events.forms import EventForm, ExperimentForm, GroupForm
 
 
 class EventCreateView(CreateView):
     model = Event
     template_name = 'events/event-create.html'
     form_class = EventForm
-    success_url = reverse_lazy('home')
+    success_url = reverse_lazy('group-create')
 
     def get_initial(self):
         initial = super().get_initial()
@@ -79,3 +79,16 @@ class EventRegistrationView(DetailView):
 class MyRegistrationsListView(ListView):
     model = Registration
     template_name = 'events/my-events.html'
+
+
+class GroupDetailView(DetailView):
+    model = Event
+    template_name = 'groups/groups-detail.html'
+
+
+class GroupCreateView(CreateView):
+    model = Event
+    template_name = 'groups/group-create.html'
+    form_class = GroupForm
+    success_url = reverse_lazy('home')
+
