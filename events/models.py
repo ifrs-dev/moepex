@@ -33,7 +33,7 @@ class Experiment(models.Model):
         verbose_name_plural = "Experimentos"
 
     title = models.CharField(max_length=200, verbose_name='Título')
-    description = models.TextField(verbose_name='Resumo', help_text='Paragráfo único com no máximo 100 palavras.')
+    description = models.TextField(verbose_name='Resumo', help_text='Paragráfo único com no máximo 50 palavras.')
     goal = models.TextField(verbose_name='Objetivo')
     status = models.IntegerField(choices=CHOICES_STATUS_EVENT, default=1, verbose_name='Status')
     authors = models.ManyToManyField(User, verbose_name='Autores', related_name='experiments')
@@ -52,7 +52,7 @@ class Event(models.Model):
         verbose_name_plural = 'Minicursos'
 
     title = models.CharField(max_length=200, verbose_name='Título')
-    description = models.TextField(verbose_name='Resumo', help_text='Paragráfo único com no máximo 50 palavras.')
+    description = models.TextField(verbose_name='Resumo', help_text='Paragráfo único com no máximo 100 palavras.')
     goal = models.TextField(verbose_name='Objetivo')
     public = models.CharField(max_length=200, verbose_name='Público Alvo')
     vacancies = models.PositiveIntegerField(verbose_name='Número Máximo de Participantes')
@@ -76,7 +76,7 @@ class Group(models.Model):
 
     event = models.ForeignKey(Event, on_delete=models.PROTECT)
     shift = models.PositiveIntegerField(choices=CHOICES_SHIFTS, verbose_name='Turno')
-    date = models.DateField(verbose_name='Data')
+    datetime = models.DateField(verbose_name='Data')
     local = models.CharField(max_length=100, verbose_name='Local')
 
     def __str__(self):

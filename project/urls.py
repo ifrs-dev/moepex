@@ -17,7 +17,7 @@ urlpatterns = [
 
     path('meus-eventos/', login_required(views_events.MyRegistrationsListView.as_view()), name='my-events'),
     path('experimento/novo/', login_required(views_events.ExperimentCreateView.as_view()), name='experiment-create'),
-    path('minicurso/<int:pk/novo/', login_required(views_events.EventCreateView.as_view()), name='event-create'),
+    path('minicurso/novo/', login_required(views_events.EventCreateView.as_view()), name='event-create'),
     path('minicurso/inscricao/<int:pk>/', login_required(views_events.EventRegistrationView.as_view()), name="event-registration"),
 
     path('login/', auth_views.LoginView.as_view(), name="login"),
