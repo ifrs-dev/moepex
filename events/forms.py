@@ -7,17 +7,19 @@ from django.contrib.auth.models import User
 class EventForm(forms.ModelForm):
     class Meta:
         model = Event
-        exclude = ('status', 'local',)
+        exclude = ('status', 'local')
         widgets = {
             'supervisor': Select2Widget,
-            'authors': Select2MultipleWidget,
+            'co_authors': Select2MultipleWidget,
         }
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['authors'].choices = [(u.id, u.get_full_name()) for u in User.objects.all()]
-        self.fields['supervisor'].choices = [(u.id, u.get_full_name()) for u in User.objects.filter(groups__name='servidores')]
+        users = User.objects.filter(is_superuser=False)
+        self.fields['co_authors'].choices = [(u.id, u.get_full_name()) for u in users]
+        self.fields['supervisor'].choices = [(u.id, u.get_full_name()) for u in users.filter(groups__name='servidores')]
         self.fields['supervisor'].choices += [('', '--------')]
+
 
 class ExperimentForm(EventForm):
     class Meta:
@@ -25,11 +27,14 @@ class ExperimentForm(EventForm):
         exclude = ('status',)
         widgets = {
             'supervisor': Select2Widget,
-            'authors': Select2MultipleWidget,
+            'co_authors': Select2MultipleWidget,
         }
 
 
 class GroupForm(forms.ModelForm):
     class Meta:
         model = Group
-        exclude = ()
+        exclude = ('event', 'local', 'hour')
+        widgets = {
+            'datetime': forms.DateInput(attrs={'type':'date'}),
+        }
