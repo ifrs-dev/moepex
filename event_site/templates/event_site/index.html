@@ -1,0 +1,116 @@
+{% extends "event_site/base.html" %}
+{% load static %}
+
+{% block content %}
+
+    <section>
+      <div class="container">
+        <h3 align="justify">A 7ª MOEPEX conta com a participação de docentes, técnico-administrativos e estudantes internos da Instituição, bem como também de Instituições externas oriundas da comunidade local e regional.</h3>
+        <p class="lead" align="justify">O objetivo geral da 7ª MOEPEX é oportunizar um espaço para exposição, apresentação e discussão de trabalhos, estudos e projetos elaborados no IFRS e em outras instituições de ensino, que tenham desenvolvido uma investigação nas dimensões do ensino, da pesquisa e da extensão sobre um fenômeno ou tema, aplicando métodos e processos técnicos científicos. <b>Para acessar o regulamento do evento<b> <a href="#">clique aqui</a>
+        </p>
+        <h3>Submeter:</h3>
+        <a href="{% url 'presentation' %}" class="btn btn-ghost">Pôster ou Apresentação Oral</a>
+        <a href="{% url 'experiment-create' %}" class="btn btn-ghost">Experimento</a>
+        <a href="{% url 'event-create' %}" class="btn btn-ghost">Minicuso</a>
+      </div>
+    </section>
+    <section class="background-gray-lightest">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-3">
+            <div class="post" align="center">
+              <h1 align="center"> {{ users.count }} </h1>
+              <h3 align="center"> Participantes</h3>
+              <p class="read-more">
+                <a href="#" class="btn btn-ghost">Realizar Inscrição</a>
+              </p>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="post" align="center">
+              <h1 align="center"> 0 </h1>
+              <h3 align="center"> Apresentações </h3>
+              <p class="read-more">
+                <a href="{% url 'presentation' %}" class="btn btn-ghost">Submeter</a>
+              </p>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="post" align="center">
+              <h1 align="center"> {{ events.count }} </h1>
+              <h3 align="center"> Minicursos </h3>
+              <p class="read-more">
+                <a href="{% url 'event-create' %}" class="btn btn-ghost">Submeter</a>
+              </p>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="post" align="center">
+              <h1 align="center"> {{ experiments.count }} </h1>
+              <h3 align="center"> Experimentos </h3>
+              <p class="read-more">
+                <a href="{% url 'experiment-create' %}" class="btn btn-ghost">Submeter</a>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!--   *** Minicursos ***-->
+    <section>
+      <div class="container clearfix">
+        <div class="row services">
+          <div class="col-md-12">
+            <h2 class="h1">Minicursos</h2>
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Título</th>
+                  <th>Autores</th>
+                </tr>
+              </thead>
+              <tbody>
+
+              {% for event in events %}
+                <tr>
+                  <td> <a href="{% url 'event-detail' event.pk %}">{{ event.title }}</a></td>
+                  <td>{{ event.get_author }}</td>
+
+                </tr>
+              {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!--   *** Minicursos END ***-->
+    <!-- Experimentos-->
+    <section id="portfolio" class="background-gray-lightest">
+    <div class="container clearfix">
+        <div class="row services">
+          <div class="col-md-12">
+            <h2 class="h1">Experimentos</h2>
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Título</th>
+                  <th>Autores</th>
+                </tr>
+              </thead>
+              <tbody>
+              {% for experiment in experiments %}
+                <tr>
+                  <td> <a href="{% url 'experiment-detail' experiment.pk %}">{{ experiment.title }}</a></td>
+                  <td>{{ experiment.get_author }}</td>
+                </tr>
+              {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Experimentos END-->
+
+{% endblock content %}

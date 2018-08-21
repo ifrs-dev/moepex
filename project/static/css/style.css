@@ -1,0 +1,94 @@
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+  position: relative;
+  min-height: 100%;
+}
+body {
+  /* Margin bottom by footer height */
+  margin-bottom: 100px;
+  margin-top: 20px;
+}
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 75px;
+  line-height: 70px; /* Vertically center the text there */
+  background-color: #D6F7CC;
+  padding: 15px;
+}
+.bg-green{
+
+background-color: #D6F7CC; 
+}
+.col{
+  text-align: center;    
+}
+th {
+    width: 150px;
+
+}
+thead tr {background-color: #f5f5f5;}
+/* Custom page CSS
+-------------------------------------------------- */
+/* Not required for template or sticky footer method. */
+
+body > .container {
+  padding: 60px 15px 0;
+}
+
+.footer > .container {
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+code {
+  font-size: 80%;
+}
+
+.banner_if{
+  height:50px; 
+  width:200px; 
+}
+.navbar-brand{
+  font-size: 24px;
+  font-family: sans-serif;
+  font-weight: bolder;
+}
+
+.navbar-dark .navbar-nav .nav-link{
+color: black;
+font-family: serif;
+font-size: 15px;
+}
+
+.navbar-dark .navbar-nav .nav-link:hover{
+color: #EE2140;
+font-family: serif;
+font-size: 15px;
+}
+.navbar-dark .navbar-nav .nav-link:focus{
+color: black;
+}
+.navbar-dark .navbar-nav .nav-link:active{
+color: red;
+}
+
+.logo{
+  height: 50px; 
+  width: 100px;
+}
+
+.btn-info {
+    color: black;
+    background-color: #D6F7CC;
+    border-color: gray;
+}
+.btn:hover{
+    color: black;
+    background-color: #a6F7aC;
+    border-color: gray;
+}
+

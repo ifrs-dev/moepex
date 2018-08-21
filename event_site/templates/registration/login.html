@@ -1,0 +1,56 @@
+{% extends "event_site/base.html" %}
+
+{% block jumbotron %}{% endblock jumbotron %}
+
+{% block content %}
+
+    <form method="post" action="{% url 'login' %}">
+
+    {% csrf_token %}
+
+   <section>
+      <div class="container">
+        <div class="row">
+        <div class="col-md-4 col-md-offset-4">
+            <h1 align="center">Login</h1>
+            <div class="form-group">
+              <input name="username" type="text" class="form-control" id="id_username" placeholder="CPF">
+            </div>
+            <div class="form-group">
+                <input name="password" type="password" class="form-control" id="id_password" placeholder="Senha">
+            </div>
+
+            {% if form.errors %}
+            <p class="text-danger" align="center">
+              Seu CPF e/ou senha estão incorretos, tente novamente
+            </p>
+            {% endif %}
+
+            <input type="submit" class="btn btn-success btn-lg btn-block" value="Entrar">
+            <input type="hidden" name="next" value="{{ next }}" />
+            <br>
+
+            <p>Caso seja um aluno regular, não é ncessário realizar o cadastro, seus dados de acesso são CPF e a senha é seu número de matrícula. Caso seja professor ou técnico administrativo, sua senha é o seu número de SIAP.</p>
+
+            <p align="center"><a href="/signup/">Cadastrar</a></p>
+        </div>
+    </div>
+  </div>
+</section>
+    </form>
+
+{% endblock %}
+
+{% block js %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
+<script type="text/javascript">
+  $('#id_username').mask('000.000.000-00', {reverse: true});
+</script>
+{% endblock js %}
+
+{% block script %}
+    <script type="text/javascript">
+        alert('teste');
+        //https://igorescobar.github.io/jQuery-Mask-Plugin/docs.html
+    </script>
+{% endblock script %}
