@@ -33,20 +33,23 @@
             <th>Título</th>
             <th>Tipo</th>
             <th>Status</th>
+            <th>Turmas</th>
           </thead>
           <tbody>
-            {% for event in request.user.events.all %}
+            {% for event in request.user.author_events.all %}
               <tr>
                 <td>{{ event.title }}</td>
                 <td>Minicurso</td>
                 <td>{{ event.get_status_display }}</td>
+                <td><a href="{% url 'group-list' event.pk %}">turmas</a></td>
               </tr>
             {% endfor %}
-            {% for experiment in request.user.experiments.all %}
+            {% for experiment in request.user.author_experiments.all %}
               <tr>
                 <td>{{ experiment.title }}</td>
                 <td>Experimento</td>
                 <td>{{ experiment.get_status_display }}</td>
+                <td>-</td>
               </tr>
             {% endfor %}
           </tbody>

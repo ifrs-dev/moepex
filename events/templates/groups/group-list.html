@@ -1,0 +1,42 @@
+{% extends "event_site/base.html" %}
+
+{% block jumbotron %}
+<hr>
+{% endblock jumbotron %}
+
+{% block content %}
+  <section>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-8">
+          <h1>Turmas</h1>
+        </div>
+        <div class="col-md-4" align="right">
+          <a href="{% url 'group-create' object.id %}" class="btn btn-success">Nova turma</a>
+        </div>
+        <div class="col-md-12">
+          <table class="table">
+            <thead>
+            <tr>
+              <th>Turma</th>
+              <th>Data</th>
+              <th>Horário</th>
+              <th>Local</th>
+            </tr>
+            </thead>
+            <tbody>
+              {% for group in object.groups.all %}
+                <tr>
+                  <td>{{ group }}</td>
+                  <td>{{ group.get_date_display }}</td>
+                  <td>{{ group.datetime|date:"g:i" }}</td>
+                  <td>{{ group.local|default_if_none:"A definir" }}</td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+{% endblock content %}

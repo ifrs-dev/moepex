@@ -1,3 +1,5 @@
+from datetime import date
+
 from django.views.generic.edit import CreateView
 from django.views.generic import View, ListView, DetailView
 from django.shortcuts import redirect
@@ -12,11 +14,17 @@ class EventCreateView(CreateView):
     model = Event
     template_name = 'events/event-create.html'
     form_class = EventForm
-    success_url = reverse_lazy('group-create')
+
+    def get_success_url(self):
+        return reverse_lazy('group-list', args=(self.object.id,))
+
+    def form_valid(self, form):
+        self.object = form.save()
+        return super().form_valid(form)
 
     def get_initial(self):
         initial = super().get_initial()
-        initial['authors'] = self.request.user.pk
+        initial['author'] = self.request.user.pk
         return initial
 
 class ExperimentCreateView(CreateView):
@@ -27,19 +35,8 @@ class ExperimentCreateView(CreateView):
 
     def get_initial(self):
         initial = super().get_initial()
-        initial['authors'] = self.request.user.pk
+        initial['author'] = self.request.user.pk
         return initial
-
-class HomeView(ListView):
-    model = Event
-    template_name = 'event_site/index.html'
-
-    def get_context_data(self, *args, **kwargs):
-        context = super().get_context_data()
-        context['experiments'] = Experiment.objects.filter(status=2)
-        context['events'] = Event.objects.filter(status=2)
-        context['users'] = User.objects.all()
-        return context
 
 
 class EventDetailView(DetailView):
@@ -81,14 +78,24 @@ class MyRegistrationsListView(ListView):
     template_name = 'events/my-events.html'
 
 
-class GroupDetailView(DetailView):
+class GroupListView(DetailView):
     model = Event
-    template_name = 'groups/groups-detail.html'
+    template_name = 'groups/group-list.html'
 
 
-class GroupCreateView(CreateView):
+class GroupCreateView(DetailView, CreateView):
     model = Event
     template_name = 'groups/group-create.html'
     form_class = GroupForm
-    success_url = reverse_lazy('home')
 
+    def get_success_url(self):
+        return reverse_lazy('group-list', args=(self.get_object().id,))
+
+    def get(self, request, *args, **kwargs):
+        if self.request.user == self.get_object().author:
+            return super().get(request, *args, **kwargs)
+        return redirect('event-detail', self.get_object().event.pk)
+
+    def form_valid(self, form):
+        form.instance.event = self.get_object()
+        return super().form_valid(form)

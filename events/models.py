@@ -21,8 +21,13 @@ CHOICES_WORKLOADS = (
 
 CHOICES_SHIFTS = (
     (1, 'Manhã'),
-    (1, 'Tarde'),
-    (1, 'Noite'),
+    (2, 'Tarde'),
+    (3, 'Noite'),
+)
+
+CHOICES_DATES = (
+    (1, '03/10/2018'),
+    (2, '04/10/2018'),
 )
 
 
@@ -33,16 +38,21 @@ class Experiment(models.Model):
         verbose_name_plural = "Experimentos"
 
     title = models.CharField(max_length=200, verbose_name='Título')
-    description = models.TextField(verbose_name='Resumo', help_text='Paragráfo único com no máximo 50 palavras.')
+    description = models.TextField(verbose_name='Resumo (Breve descrição)', help_text='Paragráfo único com no máximo 50 palavras.')
     goal = models.TextField(verbose_name='Objetivo')
     status = models.IntegerField(choices=CHOICES_STATUS_EVENT, default=1, verbose_name='Status')
-    authors = models.ManyToManyField(User, verbose_name='Autores', related_name='experiments')
+    author = models.ForeignKey(User, verbose_name='Autor', on_delete=models.PROTECT, related_name='author_experiments')
+    co_authors = models.ManyToManyField(User, verbose_name='Co-autores', related_name='co_authors_experiments', blank=True)
+    supervisor = models.ForeignKey(User, verbose_name='Orientador', on_delete=models.PROTECT, related_name='supervised_experiments')
 
     def __str__(self):
         return self.title
-    def get_author(self):
-        return ', '.join([u.get_full_name() for u in self.authors.all()])
 
+    def get_author(self):
+        authors = [u.get_full_name() for u in self.co_authors.all()]
+        authors += self.author.get_full_name()
+        authors += self.supervisor.get_full_name()
+        return ', '.join(authors)
 
 
 class Event(models.Model):
@@ -59,14 +69,21 @@ class Event(models.Model):
     requirements = models.TextField(verbose_name='Pré-requisitos', blank=True, null=True)
     materials = models.TextField(verbose_name='Recursos necessários', blank=True, null=True)
     workload = models.PositiveIntegerField(verbose_name='Carga Horária', choices=CHOICES_WORKLOADS)
-    authors = models.ManyToManyField(User, verbose_name='Autores', related_name='events')
     status = models.IntegerField(choices=CHOICES_STATUS_EVENT, default=1, verbose_name='Status')
+    author = models.ForeignKey(User, verbose_name='Autor', on_delete=models.PROTECT, related_name='author_events')
+    co_authors = models.ManyToManyField(User, verbose_name='Co-autores', related_name='co_authors_events', blank=True)
+    supervisor = models.ForeignKey(User, verbose_name='Orientador', on_delete=models.PROTECT, related_name='supervised_events')
 
     def __str__(self):
         return self.title
 
     def get_author(self):
-        return ', '.join([u.get_full_name() for u in self.authors.all()])
+        authors = [u.get_full_name() for u in self.co_authors.all()]
+        authors += [self.author.get_full_name()]
+        authors += [self.supervisor.get_full_name()]
+        print(authors)
+        return ', '.join(authors)
+
 
 class Group(models.Model):
 
@@ -74,9 +91,10 @@ class Group(models.Model):
         verbose_name = "Turma"
         verbose_name_plural = "Turmas"
 
-    event = models.ForeignKey(Event, on_delete=models.PROTECT)
+    event = models.ForeignKey(Event, on_delete=models.PROTECT, related_name='groups')
     shift = models.PositiveIntegerField(choices=CHOICES_SHIFTS, verbose_name='Turno')
-    datetime = models.DateField(verbose_name='Data e horário')
+    date = models.PositiveIntegerField(choices=CHOICES_DATES, verbose_name='Data')
+    hour = models.TimeField(verbose_name='Data e horário', null=True, blank=True)
     local = models.CharField(max_length=100, verbose_name='Local', null=True, blank=True)
 
     def __str__(self):
