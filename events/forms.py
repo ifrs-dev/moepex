@@ -7,7 +7,7 @@ from django.contrib.auth.models import User
 class EventForm(forms.ModelForm):
     class Meta:
         model = Event
-        exclude = ('status',)
+        exclude = ('status', 'local',)
         widgets = {
             'authors': Select2MultipleWidget,
 

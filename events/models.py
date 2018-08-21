@@ -52,12 +52,12 @@ class Event(models.Model):
         verbose_name_plural = 'Minicursos'
 
     title = models.CharField(max_length=200, verbose_name='Título')
-    description = models.TextField(verbose_name='Resumo', help_text='Paragráfo único com no máximo 100 palavras.')
+    description = models.TextField(verbose_name='Resumo (Breve descrição)', help_text='Paragráfo único com no máximo 100 palavras.')
     goal = models.TextField(verbose_name='Objetivo')
     public = models.CharField(max_length=200, verbose_name='Público Alvo')
     vacancies = models.PositiveIntegerField(verbose_name='Número Máximo de Participantes')
     requirements = models.TextField(verbose_name='Pré-requisitos', blank=True, null=True)
-    materials = models.TextField(verbose_name='Material Necessário', blank=True, null=True)
+    materials = models.TextField(verbose_name='Recursos necessários', blank=True, null=True)
     workload = models.PositiveIntegerField(verbose_name='Carga Horária', choices=CHOICES_WORKLOADS)
     authors = models.ManyToManyField(User, verbose_name='Autores', related_name='events')
     status = models.IntegerField(choices=CHOICES_STATUS_EVENT, default=1, verbose_name='Status')
@@ -76,8 +76,8 @@ class Group(models.Model):
 
     event = models.ForeignKey(Event, on_delete=models.PROTECT)
     shift = models.PositiveIntegerField(choices=CHOICES_SHIFTS, verbose_name='Turno')
-    datetime = models.DateField(verbose_name='Data')
-    local = models.CharField(max_length=100, verbose_name='Local')
+    datetime = models.DateField(verbose_name='Data e horário')
+    local = models.CharField(max_length=100, verbose_name='Local', null=True, blank=True)
 
     def __str__(self):
         return self.event.title + ' - Turma ' + str(self.id)
