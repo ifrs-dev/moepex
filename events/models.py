@@ -33,10 +33,11 @@ class Experiment(models.Model):
         verbose_name_plural = "Experimentos"
 
     title = models.CharField(max_length=200, verbose_name='Título')
-    description = models.TextField(verbose_name='Resumo', help_text='Paragráfo único com no máximo 50 palavras.')
+    description = models.TextField(verbose_name='Resumo (Breve descrição)', help_text='Paragráfo único com no máximo 50 palavras.')
     goal = models.TextField(verbose_name='Objetivo')
     status = models.IntegerField(choices=CHOICES_STATUS_EVENT, default=1, verbose_name='Status')
     authors = models.ManyToManyField(User, verbose_name='Autores', related_name='experiments')
+    supervisor = models.ForeignKey(User, verbose_name='Orientador', on_delete=models.PROTECT, related_name='supervised_experiments')
 
     def __str__(self):
         return self.title
@@ -59,8 +60,9 @@ class Event(models.Model):
     requirements = models.TextField(verbose_name='Pré-requisitos', blank=True, null=True)
     materials = models.TextField(verbose_name='Recursos necessários', blank=True, null=True)
     workload = models.PositiveIntegerField(verbose_name='Carga Horária', choices=CHOICES_WORKLOADS)
-    authors = models.ManyToManyField(User, verbose_name='Autores', related_name='events')
     status = models.IntegerField(choices=CHOICES_STATUS_EVENT, default=1, verbose_name='Status')
+    authors = models.ManyToManyField(User, verbose_name='Autores', related_name='events')
+    supervisor = models.ForeignKey(User, verbose_name='Orientador', on_delete=models.PROTECT, related_name='supervised_events')
 
     def __str__(self):
         return self.title
