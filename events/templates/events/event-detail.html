@@ -25,7 +25,9 @@
               <th>Turno</th>
               <th>Local</th>
               <th>Inscrição</th>
+              {% if request.user.is_authenticated %}
               <th><a href="{% url 'group-create' %}" class="btnn">Adicionar Turma</a></th>
+              {% endif %}
             </tr>
           </thead>
           <tbody>
