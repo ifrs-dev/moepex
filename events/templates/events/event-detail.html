@@ -34,7 +34,7 @@
             {% for group in groups %}
               <tr>
                 <td>{{ group }}</td>
-                <td>{{ group.date }}</td>
+                <td>{{ group.get_date_display }}</td>
                 <td>{{ group.get_shift_display }}</td>
                 <td>{{ group.local }}</td>
                 <td>
