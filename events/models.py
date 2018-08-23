@@ -50,8 +50,9 @@ class Experiment(models.Model):
 
     def get_author(self):
         authors = [u.get_full_name() for u in self.co_authors.all()]
-        authors += self.author.get_full_name()
-        authors += self.supervisor.get_full_name()
+        authors += [self.author.get_full_name()]
+        authors += [self.supervisor.get_full_name()]
+        print(authors)
         return ', '.join(authors)
 
 
