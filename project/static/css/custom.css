@@ -1,1 +1,10 @@
 /* your styles go here */
+section{
+    padding-top: 35px;;
+    padding-bottom: 20px;;
+}
+
+.footer__block{
+    padding-top: 35px;;
+    padding-bottom: 20px;;
+}

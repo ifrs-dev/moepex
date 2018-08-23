@@ -7,10 +7,10 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="all,follow">
-  <meta name="description" content="A 7º MOEPEX é um evento de exposição, apresentação e discussão de trabalhos, estudos e projetos elaborados no IFRS e em outras instituições de ensino.">
+  <meta name="description" content="A 7º MOEPEX, Mostra de Ensino, Pesquisa e Extensão, é um evento de exposição, apresentação e discussão de trabalhos, estudos e projetos elaborados no IFRS e em outras instituições de ensino.">
   <meta name="keywords" content="evento, exposição, trabalhos, ifrs" >
   <meta name="author" content="IFRS-DEV (github.com/ifrs-dev)" >
-  <title>7º Moepex</title>
+  <title>Moepex</title>
 
   {{ form.media.css }}
   <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,700">
@@ -31,7 +31,7 @@
     <header class="header">
       <div role="navigation" class="navbar navbar-default">
         <div class="container">
-          <div class="navbar-header"><a href="{% url 'home' %}" class="navbar-brand">7º Moepex</a>
+          <div class="navbar-header"><a href="{% url 'home' %}" class="navbar-brand">Página Inicial</a>
             <div class="navbar-buttons">
               <button type="button" data-toggle="collapse" data-target=".navbar-collapse" class="navbar-toggle navbar-btn">Menu<i class="fa fa-align-justify"></i></button>
             </div>
@@ -49,6 +49,7 @@
               <li><a href="{% url 'home' %}">Regulamento</a></li>
             </ul>
             {% if request.user.is_authenticated %}
+              <a href="{% url 'change_password'%}" class="btn navbar-btn btn-ghost"><i class="fa fa-key"></i>Alterar senha</a>
               {% if request.user.is_staff %}
                 <a href="{% url 'admin:index' %}" class="btn navbar-btn btn-ghost"><i class="fa fa-lock"></i>Admin</a>
               {% endif %}
@@ -66,8 +67,8 @@
     <div class="jumbotron main-jumbotron">
       <div class="container">
         <div class="content">
-          <h1>7º MOEPEX</h1>
-          <p class="margin-bottom"><b>Monstra de Ensino, Pesquisa e Extensão</b></p>
+            <h1>&nbsp;</h1>
+            <p>&nbsp;</p>
         </div>
       </div>
     </div>
