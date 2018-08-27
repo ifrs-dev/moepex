@@ -67,7 +67,7 @@
               <thead>
                 <tr>
                   <th>Título</th>
-                  <th>Autores</th>
+                  <th>Descrição</th>
                 </tr>
               </thead>
               <tbody>
@@ -75,8 +75,7 @@
               {% for event in events %}
                 <tr>
                   <td> <a href="{% url 'event-detail' event.pk %}">{{ event.title }}</a></td>
-                  <td>{{ event.get_author }}</td>
-
+                  <td>{{ event.description|truncatechars:100 }}</td>
                 </tr>
               {% endfor %}
               </tbody>
@@ -96,14 +95,14 @@
               <thead>
                 <tr>
                   <th>Título</th>
-                  <th>Autores</th>
+                  <th>Descrição</th>
                 </tr>
               </thead>
               <tbody>
               {% for experiment in experiments %}
                 <tr>
                   <td> <a href="{% url 'experiment-detail' experiment.pk %}">{{ experiment.title }}</a></td>
-                  <td>{{ experiment.get_author }}</td>
+                  <td>{{ experiment.description|truncatechars:100 }}</td>
                 </tr>
               {% endfor %}
               </tbody>
