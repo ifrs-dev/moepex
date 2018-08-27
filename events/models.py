@@ -19,16 +19,19 @@ CHOICES_WORKLOADS = (
     (2, '4 horas'),
 )
 
-CHOICES_SHIFTS = (
-    (1, 'Manhã'),
-    (2, 'Tarde'),
-    (3, 'Noite'),
+CHOICES_SHIFTS_4 = (
+    (1, '04/10/2018 Tarde'),
+    (2, '04/10/2018 Noite'),
 )
 
-CHOICES_DATES = (
-    (1, '03/10/2018'),
-    (2, '04/10/2018'),
+CHOICES_SHIFTS_2 = (
+    (11, '04/10/2018 Tarde 1'),
+    (12, '04/10/2018 Tarde 2'),
+    (13, '04/10/2018 Noite 1'),
+    (14, '04/10/2018 Noite 2'),
 )
+
+CHOICES_SHIFTS = CHOICES_SHIFTS_2 + CHOICES_SHIFTS_4
 
 
 class Experiment(models.Model):
@@ -93,9 +96,7 @@ class Group(models.Model):
         verbose_name_plural = "Turmas"
 
     event = models.ForeignKey(Event, on_delete=models.PROTECT, related_name='groups')
-    shift = models.PositiveIntegerField(choices=CHOICES_SHIFTS, verbose_name='Turno')
-    date = models.PositiveIntegerField(choices=CHOICES_DATES, verbose_name='Data')
-    hour = models.TimeField(verbose_name='Data e horário', null=True, blank=True)
+    shift = models.PositiveIntegerField(choices=CHOICES_SHIFTS, verbose_name='Data')
     local = models.CharField(max_length=100, verbose_name='Local', null=True, blank=True)
 
     def __str__(self):
