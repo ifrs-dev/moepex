@@ -38,3 +38,8 @@ class GroupForm(forms.ModelForm):
         widgets = {
             'datetime': forms.DateInput(attrs={'type':'date'}),
         }
+
+    def __init__(self, *args, **kwargs):
+        self.choices = kwargs.pop('choices', None)
+        super().__init__(*args, **kwargs)
+        self.fields['shift'].choices = self.choices

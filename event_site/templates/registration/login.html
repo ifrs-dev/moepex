@@ -11,15 +11,21 @@
    <section>
       <div class="container">
         <div class="row">
-        <div class="col-md-4 col-md-offset-4">
-            <h1 align="center">Login</h1>
+        <div class="col-md-5 col-md-offset-1" align="justify">
+            <h3 align="center">Comos acessar o sistema</h3>
+            <p><b>Alunos:</b> Alunos regulares do ensino superior e técnico integrado já estão cadastrados, para acessar basta inserir o CPF e no campo da senha inserir o número de matrícula do SIA (sem o 0 inicial). A senha pode <b>e deve</b> ser altera após o primeiro acesso.</p>
+            <p><b>Servidores:</b> Servidores já estão cadastrados, para acessar basta inserir o CPF, e no campo da senha inserir o número matrícula SIAP. A senha pode <b>e deve</b> ser altera após o primeiro acesso.</p>
+            <p><b>Comunidade Externa:</b> É necessário realizar cadastro, por meio deste <a href="/signup/">formulário</a>.</p>
+            <p align="center"></p>
+        </div>
+        <div class="col-md-4 col-md-offset-1">
+            <h3 align="center">Entrar</h3>
             <div class="form-group">
               <input name="username" type="text" class="form-control" id="id_username" placeholder="CPF">
             </div>
             <div class="form-group">
                 <input name="password" type="password" class="form-control" id="id_password" placeholder="Senha">
             </div>
-
             {% if form.errors %}
             <p class="text-danger" align="center">
               Seu CPF e/ou senha estão incorretos, tente novamente
@@ -28,10 +34,9 @@
             <input type="submit" class="btn btn-success btn-lg btn-block" value="Entrar">
             <input type="hidden" name="next" value="{{ next }}" />
             <br>
-
-            <p>Caso seja um aluno regular, não é ncessário realizar o cadastro, seus dados de acesso são CPF e a senha é seu número de matrícula. Caso seja professor ou técnico administrativo, sua senha é o seu número de SIAP.</p>
-
-            <p align="center"><a href="/signup/">Cadastrar</a></p>
+            <p align="center">
+                Caso encontre problemas de acesso, envie um email para moepex@ibiruba.ifrs.edu.br
+            </p>
         </div>
     </div>
   </div>
