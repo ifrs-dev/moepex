@@ -6,7 +6,7 @@ from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.contrib.auth.models import User
 
-from events.models import Event, Registration, Group, Experiment
+from events.models import Event, Registration, Group, Experiment, CHOICES_SHIFTS_2, CHOICES_SHIFTS_4
 from events.forms import EventForm, ExperimentForm, GroupForm
 
 
@@ -90,6 +90,15 @@ class GroupCreateView(DetailView, CreateView):
 
     def get_success_url(self):
         return reverse_lazy('group-list', args=(self.get_object().id,))
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        event = self.get_object()
+        if event.workload == 1:
+            kwargs['choices'] = CHOICES_SHIFTS_2
+        else:
+            kwargs['choices'] = CHOICES_SHIFTS_4
+        return kwargs
 
     def get(self, request, *args, **kwargs):
         if self.request.user == self.get_object().author:
