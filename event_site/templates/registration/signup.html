@@ -3,6 +3,7 @@
 {% load bootstrap %}
 
 {% block jumbotron %}{% endblock jumbotron %}
+{% block page_title %}Cadastro{% endblock page_title %}
 
 {% block content %}
 
@@ -15,7 +16,7 @@
         <div class="row">
           <div class="col-md-6 col-md-offset-3">
             <h3>Cadastro de participante externo</h3>
-            <p>Caso seja um aluno regular, não é necessário realizar o cadastro, seus dados de acesso são CPF e a senha é seu número de matrícula. Caso seja professor ou técnico administrativo, sua senha é o seu número de SIAP. 
+            <p>Caso seja um aluno regular, não é necessário realizar o cadastro, seus dados de acesso são CPF e a senha é seu número de matrícula. Caso seja professor ou técnico administrativo, sua senha é o seu número de SIAP.
             <a href="{% url 'login' %}">Clique aqui para realizar o login</a></p>
             {{ form|bootstrap }}
             <button type="submit">Cadastrar</button>
@@ -34,4 +35,3 @@
   $('#id_username').mask('000.000.000-00', {reverse: true});
 </script>
 {% endblock js %}
-
