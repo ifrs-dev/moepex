@@ -10,7 +10,7 @@
   <meta name="description" content="A 7º MOEPEX, Mostra de Ensino, Pesquisa e Extensão, é um evento de exposição, apresentação e discussão de trabalhos, estudos e projetos elaborados no IFRS e em outras instituições de ensino.">
   <meta name="keywords" content="evento, exposição, trabalhos, ifrs" >
   <meta name="author" content="IFRS-DEV (github.com/ifrs-dev)" >
-  <title>Moepex</title>
+  <title>7º MOEPEX | IFRS - Campus Ibirubá | {% block page_title %}Página Inicial{% endblock page_title %}</title>
 
   {{ form.media.css }}
   <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,700">
@@ -31,14 +31,13 @@
     <header class="header">
       <div role="navigation" class="navbar navbar-default">
         <div class="container">
-          <div class="navbar-header"><a href="{% url 'home' %}" class="navbar-brand">Página Inicial</a>
+          <div class="navbar-header"><a href="http://moepex.ibiruba.ifrs.edu.br/" rel=”canonical” class="navbar-brand">Página Inicial</a>
             <div class="navbar-buttons">
               <button type="button" data-toggle="collapse" data-target=".navbar-collapse" class="navbar-toggle navbar-btn">Menu<i class="fa fa-align-justify"></i></button>
             </div>
           </div>
           <div id="navigation" class="collapse navbar-collapse navbar-right">
             <ul class="nav navbar-nav">
-              <li><a href="{% url 'home' %}">Home</a></li>
               <li class="dropdown"><a href="#" data-toggle="dropdown" class="dropdown-toggle">Submissão <b class="caret"></b></a>
                 <ul class="dropdown-menu">
                   <li><a href="{% url 'presentation' %}">Pôster e Apresentação Oral</a></li>
@@ -67,8 +66,9 @@
     <div class="jumbotron main-jumbotron">
       <div class="container">
         <div class="content">
-            <h1>&nbsp;</h1>
-            <p>&nbsp;</p>
+          <p>&nbsp;</p>
+          <p>&nbsp;</p>
+          <p>&nbsp;</p>
         </div>
       </div>
     </div>
@@ -81,14 +81,14 @@
         <div class="container">
           <div class="row">
             <div class="col-md-8 col-sm-12" >
-              <h4 class="heading">Organização</h4>
+              <span class="heading">Organização</span>
               <p>
                 Instituto Federal de Educação, Ciência e Tecnologia do Rio Grande do Sul – Câmpus Ibirubá
                 <br>Rua Nelsi Ribas Fritsch, 1111 | Bairro Esperança | CEP: 98200-000 | Ibirubá/RS
               </p>
             </div>
             <div class="col-md-4 col-sm-12">
-              <h4 class="heading">Contato</h4>
+              <span class="heading">Contato</span>
               <p>moepex@ibiruba.ifrs.edu.br</p>
             </div>
           </div>
@@ -122,9 +122,16 @@
     <script src="{% static 'js/jquery.cookie.js' %}"></script>
     <script src="{% static 'js/lightbox.min.js' %}"></script>
     <script src="{% static 'js/front.js' %}"></script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-124689317-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-124689317-1');
+    </script>
     {{ form.media.js }}
     {% block js %}{% endblock js %}
-
   </body>
 
 </html>
