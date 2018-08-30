@@ -1,0 +1,55 @@
+{% extends "event_site/base.html" %}
+
+{% block page_title %}Programação{% endblock page_title %}
+
+{% block content %}
+
+   <section>
+      <div class="container">
+        <h1 align="center">Programação da 7º MOEPEX</h1>
+        <br>
+        <table class="table">
+          <tr>
+            <th>Turno</th>
+            <th>Horário</th>
+            <th>3 de Outubro</th>
+            <th>4 de Outubro<br></th>
+          </tr>
+          <tr>
+            <td rowspan="2">Manhã</td>
+            <td>7:45 - 10:15</td>
+            <td>Abertura/Apresentação Pôster</td>
+            <td>Apresentações Orais</td>
+          </tr>
+          <tr>
+            <td>10:30 - 12:10</td>
+            <td>Apresentações Orais</td>
+            <td>Apresentações Orais</td>
+          </tr>
+          <tr>
+            <td rowspan="2">Tarde</td>
+            <td>13:15 - 14:55</td>
+            <td>Mostra de trabalhos</td>
+            <td>Minicursos</td>
+          </tr>
+          <tr>
+            <td>15:10 -16:50</td>
+            <td>Mostra cultural</td>
+            <td>Minicursos</td>
+          </tr>
+          <tr>
+            <td rowspan="2">Noite</td>
+            <td>19:00 - 20:40</td>
+            <td>Abertura/Apresentação Pôster</td>
+            <td>Minicursos</td>
+          </tr>
+          <tr>
+            <td>20:50 - 22:30</td>
+            <td>Apresentações Orais</td>
+            <td>Minicursos</td>
+          </tr>
+        </table>
+      </div>
+  </section>
+
+{% endblock %}
