@@ -5,13 +5,16 @@
 
     <section>
       <div class="container">
-        <h3 align="justify">A 7ª MOEPEX conta com a participação de docentes, técnico-administrativos e estudantes internos da Instituição, bem como também de Instituições externas oriundas da comunidade local e regional.</h3>
-        <p class="lead" align="justify">O objetivo geral da 7ª MOEPEX é oportunizar um espaço para exposição, apresentação e discussão de trabalhos, estudos e projetos elaborados no IFRS e em outras instituições de ensino, que tenham desenvolvido uma investigação nas dimensões do ensino, da pesquisa e da extensão sobre um fenômeno ou tema, aplicando métodos e processos técnicos científicos. <b>Para acessar o regulamento do evento<b> <a href="#">clique aqui</a>
-        </p>
-        <strong>Submeter:</strong>
-        <a href="{% url 'presentation' %}" class="btn btn-ghost">Pôster ou Apresentação Oral</a>
-        <a href="{% url 'experiment-create' %}" class="btn btn-ghost">Experimento</a>
-        <a href="{% url 'event-create' %}" class="btn btn-ghost">Minicuso</a>
+        <article class="lead" align="justify">
+          <p>Esta é a sétima edição da <strong>Mostra de Ensino Pesquisa e Extensão (MOEPEX)</strong>, que ocorrerá nos dias 3 e 4 de outubro de 2018 no IFRS - Campus Ibiruba.</p>
+          <p>A 7ª MOEPEX é evento voltado para a comunidade escolar e acadêmica, que oportuniza a exposição, apresentação e discussão de trabalhos, estudos e projetos elaborados no IFRS e em outras instituições de ensino da região que desenvolvam investigações nas dimensões do ensino, pesquisa e da extensão sobre um fenômeno ou tema, aplicando métodos e processos técnicos científicos.</p>
+          <p>
+            <b>Links Importantes: <b>
+              <a href="{% url 'program' %}" target="_blank">Programação</a>,
+              <a href="{% static 'docs/regulamento-geral.pdf'%}" target="_blank">Regulamento</a> e
+              <a href="{% url 'login' %}" target="_blank">Sistema de Inscrições</a>.
+          </p>
+        </article>
       </div>
     </section>
     <section class="background-gray-lightest">
@@ -19,8 +22,8 @@
         <div class="row">
           <div class="col-md-3">
             <div class="post" align="center">
-              <h1 align="center"> {{ users.count }} </h1>
-              <h3 align="center"> Participantes</h3>
+              <p class="h1" align="center">{{ users.count }}</p>
+              <p class="h3" align="center">Participantes</p>
               <p class="read-more">
                 <a href="{% url 'signup' %}" class="btn btn-ghost">Realizar Inscrição</a>
               </p>
@@ -28,8 +31,8 @@
           </div>
           <div class="col-md-3">
             <div class="post" align="center">
-              <h1 align="center"> 0 </h1>
-              <h3 align="center"> Apresentações </h3>
+              <p class="h1" align="center">0</p>
+              <p class="h3" align="center">Apresentações</p>
               <p class="read-more">
                 <a href="{% url 'presentation' %}" class="btn btn-ghost">Submeter</a>
               </p>
@@ -37,8 +40,8 @@
           </div>
           <div class="col-md-3">
             <div class="post" align="center">
-              <h1 align="center"> {{ events.count }} </h1>
-              <h3 align="center"> Minicursos </h3>
+              <p class="h1" align="center">{{ events.count }}</p>
+              <p class="h3" align="center">Minicursos</p>
               <p class="read-more">
                 <a href="{% url 'event-create' %}" class="btn btn-ghost">Submeter</a>
               </p>
@@ -46,8 +49,8 @@
           </div>
           <div class="col-md-3">
             <div class="post" align="center">
-              <h1 align="center"> {{ experiments.count }} </h1>
-              <h3 align="center"> Experimentos </h3>
+              <p class="h1" align="center">{{ experiments.count }}</p>
+              <p class="h3" align="center">Experimentos</p>
               <p class="read-more">
                 <a href="{% url 'experiment-create' %}" class="btn btn-ghost">Submeter</a>
               </p>
@@ -61,7 +64,7 @@
       <div class="container clearfix">
         <div class="row services">
           <div class="col-md-12">
-            <h2 class="h1">Minicursos</h2>
+            <span class="h2">Minicursos</span>
             <p>Clique no título para mais informações e inscrever-se.</p>
             <table class="table">
               <thead>
@@ -90,7 +93,7 @@
     <div class="container clearfix">
         <div class="row services">
           <div class="col-md-12">
-            <h2 class="h1">Experimentos</h2>
+            <span class="h2">Experimentos</span>
             <table class="table">
               <thead>
                 <tr>

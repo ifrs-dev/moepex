@@ -31,29 +31,45 @@
     <header class="header">
       <div role="navigation" class="navbar navbar-default">
         <div class="container">
-          <div class="navbar-header"><a href="http://moepex.ibiruba.ifrs.edu.br/" rel=”canonical” class="navbar-brand">Página Inicial</a>
+          <div class="navbar-header"><a href="http://moepex.ibiruba.ifrs.edu.br/" rel=”canonical” class="navbar-brand"><h1 class="h3">MOEPEX</h1></a>
             <div class="navbar-buttons">
               <button type="button" data-toggle="collapse" data-target=".navbar-collapse" class="navbar-toggle navbar-btn">Menu<i class="fa fa-align-justify"></i></button>
             </div>
           </div>
           <div id="navigation" class="collapse navbar-collapse navbar-right">
             <ul class="nav navbar-nav">
-              <li class="dropdown"><a href="#" data-toggle="dropdown" class="dropdown-toggle">Submissão <b class="caret"></b></a>
+              <li><a href="{% url 'program'%}">Programação</a></li>
+              <li class="dropdown"><a href="#" data-toggle="dropdown" class="dropdown-toggle">Submissão<b class="caret"></b></a>
                 <ul class="dropdown-menu">
                   <li><a href="{% url 'presentation' %}">Pôster e Apresentação Oral</a></li>
                   <li><a href="{% url 'experiment-create' %}">Amostra de Experimentos</a></li>
                   <li><a href="{% url 'event-create' %}">Minicurso</a></li>
                 </ul>
               </li>
-              <li><a href="{% url 'home' %}">Regulamento</a></li>
+              <li class="dropdown"><a href="#" data-toggle="dropdown" class="dropdown-toggle">Modelos<b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li><a href="{% static 'docs/modelo-resumo.docx'%}">MODELO DE RESUMO</a></li>
+                  <li><a href="{% static 'docs/modelo-poster.pptx'%}">MODELO DE PÔSTER</a></li>
+                  <li><a href="{% static 'docs/modelo-apresentacao-oral.pptx'%}">MODELO DE APRESENTAÇÃO ORAL</a></li>
+                </ul>
+              </li>
+              <li><a href="{% static 'docs/regulamento-geral.pdf'%}" target="_blank">Regulamento</a></li>
             </ul>
             {% if request.user.is_authenticated %}
-              <a href="{% url 'change_password'%}" class="btn navbar-btn btn-ghost"><i class="fa fa-key"></i>Alterar senha</a>
+              <a href="{% url 'change_password'%}" class="btn navbar-btn btn-ghost" data-toggle="tooltip" data-placement="bottom" title="Alterar senha">
+                <i class="fa fa-key"></i>
+              </a>
               {% if request.user.is_staff %}
-                <a href="{% url 'admin:index' %}" class="btn navbar-btn btn-ghost"><i class="fa fa-lock"></i>Admin</a>
+                <a href="{% url 'admin:index' %}" class="btn navbar-btn btn-ghost" data-toggle="tooltip" data-placement="bottom" title="Admin">
+                  <i class="fa fa-lock"></i>
+                </a>
               {% endif %}
-              <a href="{% url 'my-events' %}" class="btn navbar-btn btn-ghost"><i class="fa fa-calendar"></i>Meus Eventos</a>
-              <a href="{% url 'logout' %}" class="btn navbar-btn btn-ghost"><i class="fa fa-sign-out"></i>Sair</a>
+              <a href="{% url 'my-events' %}" class="btn navbar-btn btn-ghost" data-toggle="tooltip" data-placement="bottom" title="Meus Eventos">
+                <i class="fa fa-calendar"></i>
+              </a>
+              <a href="{% url 'logout' %}" class="btn navbar-btn btn-ghost" data-toggle="tooltip" data-placement="bottom" title="Sair">
+                <i class="fa fa-sign-out"></i>
+              </a>
             {% else %}
               <a href="{% url 'login' %}" class="btn navbar-btn btn-ghost"><i class="fa fa-user"></i>Entrar</a>
             {% endif %}
