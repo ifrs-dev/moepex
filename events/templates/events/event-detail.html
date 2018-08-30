@@ -24,7 +24,6 @@
             <tr>
               <th>Turma</th>
               <th>Data</th>
-              <th>Turno</th>
               <th>Local</th>
               <th>Inscrição</th>
             </tr>
@@ -33,10 +32,11 @@
             {% for group in groups %}
               <tr>
                 <td>{{ group }}</td>
-                <td>{{ group.get_date_display }}</td>
                 <td>{{ group.get_shift_display }}</td>
-                <td>{{ group.local }}</td>
+                <td>{{ group.local|default_if_none:"A definir" }}</td>
                 <td>
+                  <b>Em breve</b>
+                  {% comment %}
                   {% if registred == 'not_user' %}
                     <button class="btn btn-danger" disabled>Necessário Login Para Inscrição</button>
                   {% elif group.registrations > group.vacancies %}
@@ -45,7 +45,9 @@
                     <button class="btn btn-success" disabled>Inscrito</button>
                   {% else %}
                     <a href="{% url 'event-registration' group.pk %}" class="btn btn-success btn-info">Realizar Inscrição</a>
-                {% endif %}</td>
+                  {% endif %}
+                  {% endcomment %}
+                </td>
               </tr>
             {% endfor %}
           </tbody>

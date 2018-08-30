@@ -1,5 +1,7 @@
 {% extends "event_site/base.html" %}
 
+{% load staticfiles %}
+
 {% block page_title %}Apresentação Oral{% endblock page_title %}
 
 {% block content %}
@@ -7,8 +9,16 @@
    <section>
       <div class="container">
         <h1>Apresentação Oral e Banner</h1>
-        <p>Adicionar aqui orientações de como submeter</p>
-        <p><a href="https://eventos.ifrs.edu.br/index.php/MoEPExIbiruba/7moepex/author/submit" class="btn btn-default" target="_blank">Submeter</a></p>
+        <ol>
+          <li>Escrever um resumo conforme <a href="{% static 'docs/modelo-resumo.docx'%}">modelo</a>.</li>
+          <li>
+            Submeter no
+            <a href="https://eventos.ifrs.edu.br/index.php/MoEPExIbiruba/7moepex/author/submit" target="_blank">sistema de eventos</a>.
+          </li>
+          <li>Caso a apresentação for por meio de poster, utilizar este <a href="{% static 'docs/modelo-poster.pptx'%}">modelo</a>.</li>
+          <li>Caso a apresentação for por meio de poster, utilizar este <a href="{% static 'docs/modelo-apresentacao-oral.pptx'%}">modelo</a>.</li>
+
+      </ol>
       </div>
   </section>
 
