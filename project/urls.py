@@ -11,6 +11,7 @@ from events import views as views_events
 urlpatterns = [
     path('', views_event_site.HomeView.as_view(), name='home'),
     path('apresentacao', views_event_site.PresentationTemplateView.as_view(), name='presentation'),
+    path('programacao', views_event_site.ProgramTemplateView.as_view(), name='program'),
     path('login/', auth_views.LoginView.as_view(), name="login"),
     path('change_password', views_event_site.change_password, name='change_password'),
     path('logout/', auth_views.LogoutView.as_view(), name="logout"),

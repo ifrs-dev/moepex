@@ -28,6 +28,10 @@ class PresentationTemplateView(TemplateView):
     template_name = 'event_site/presentation.html'
 
 
+class ProgramTemplateView(TemplateView):
+    template_name = 'event_site/program.html'
+
+
 class SignUpView (CreateView):
     template_name = 'registration/signup.html'
     form_class = SignUpForm

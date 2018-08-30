@@ -100,7 +100,7 @@ class Group(models.Model):
     local = models.CharField(max_length=100, verbose_name='Local', null=True, blank=True)
 
     def __str__(self):
-        return self.event.title + ' - Turma ' + str(self.id)
+        return 'Turma ' + str(self.id)
 
 
 class Registration(models.Model):
