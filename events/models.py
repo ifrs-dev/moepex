@@ -37,8 +37,8 @@ CHOICES_SHIFTS = CHOICES_SHIFTS_2 + CHOICES_SHIFTS_4
 class Experiment(models.Model):
 
     class Meta:
-        verbose_name = "Experimento"
-        verbose_name_plural = "Experimentos"
+        verbose_name = "Trabalho"
+        verbose_name_plural = "Trabalhos"
 
     title = models.CharField(max_length=200, verbose_name='Título')
     description = models.TextField(verbose_name='Resumo (Breve descrição)', help_text='Paragráfo único com no máximo 50 palavras.')
