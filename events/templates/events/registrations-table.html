@@ -18,19 +18,12 @@
       <td>{{ object.get_status_display }}</td>
         
       <td>
-        <a href="{% url 'registration-present' object.pk %}" class="btn btn-success">
-          <i class="fas fa-user-check"></i>
+        <a href="{% url 'registration-present' object.pk %}" class="btn btn-success Presenca">Presente
        </a>
-       <a href="{% url 'registration-absent' object.pk %}" class="btn btn-danger">
-         <i class="fas fa-user-times"></i>
+       <a href="{% url 'registration-absent' object.pk %}" class="btn btn-danger Presenca">Ausente
        </a>
      </td>
    </tr>
    {% endfor %}
  </tbody>
 </table>
-<style type="text/css">
-  thead{
-    color: white;
-  }
-</style>

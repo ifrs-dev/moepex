@@ -1,7 +1,6 @@
 {% extends "event_site/base.html" %}
 
 {% block content %}
-
 <div class="container">
 	<div class="row">
 		<div class="col-5">
@@ -12,8 +11,10 @@
 				{% csrf_token %}
 			<input type="text" name="cpf" placeholder="CPF" autofocus="true" required="true">
 			<input type="submit"  class="btn btn-info" value="Marcar presença">
+			<a class="btn btn-success" href="{% url 'registrations-list-pdf' object.pk %}">Imprimir</a>
 			</form>
-			
+			</div>
+	</div>
 </div>
 
 
