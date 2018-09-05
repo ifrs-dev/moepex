@@ -54,8 +54,8 @@ class Experiment(models.Model):
     def get_author(self):
         authors = [u.get_full_name() for u in self.co_authors.all()]
         authors += [self.author.get_full_name()]
-        authors += [self.supervisor.get_full_name()]
-        print(authors)
+        if self.supervisor:
+            authors += [self.supervisor.get_full_name()]
         return ', '.join(authors)
 
 
@@ -76,7 +76,7 @@ class Event(models.Model):
     status = models.IntegerField(choices=CHOICES_STATUS_EVENT, default=1, verbose_name='Status')
     author = models.ForeignKey(User, verbose_name='Autor', on_delete=models.PROTECT, related_name='author_events')
     co_authors = models.ManyToManyField(User, verbose_name='Co-autores', related_name='co_authors_events', blank=True)
-    supervisor = models.ForeignKey(User, verbose_name='Orientador', on_delete=models.PROTECT, related_name='supervised_events')
+    supervisor = models.ForeignKey(User, verbose_name='Orientador', on_delete=models.PROTECT, related_name='supervised_events', blank=True, null=True)
 
     def __str__(self):
         return self.title
@@ -84,8 +84,8 @@ class Event(models.Model):
     def get_author(self):
         authors = [u.get_full_name() for u in self.co_authors.all()]
         authors += [self.author.get_full_name()]
-        authors += [self.supervisor.get_full_name()]
-        print(authors)
+        if self.supervisor:
+            authors += [self.supervisor.get_full_name()]
         return ', '.join(authors)
 
 
