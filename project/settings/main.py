@@ -31,6 +31,7 @@ INSTALLED_APPS = [
     'django_select2',
     'event_site',
     'events',
+    'easy_pdf',
 ]
 
 MIDDLEWARE = [
