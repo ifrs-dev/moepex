@@ -57,6 +57,10 @@ class EventDetailView(DetailView):
                     context['registred'] = 'valid'
             except:
                 pass
+            if user == self.get_object().author:
+                context['author'] = True
+            else:
+                context['author'] = False
         return context
 
 
@@ -140,10 +144,3 @@ class RegistrationsListView(DetailView):
         context['registrations'] = Registration.objects.filter(group=self.get_object()).order_by('user__first_name')
         context['pdf'] = self.pdf
         return context
-
-    def post(self, request, *args, **kwargs):
-        user = User.objects.get(username=request.POST['cpf'])
-        registration = Registration.objects.get(user=user, group=self.get_object())
-        registration.status = 2
-        registration.save()
-        return super().get(request, *args, **kwargs)
