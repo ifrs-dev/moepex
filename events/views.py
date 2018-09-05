@@ -143,7 +143,7 @@ class RegistrationsListView(DetailView):
 
     def post(self, request, *args, **kwargs):
         user = User.objects.get(username=request.POST['cpf'])
-        registration = Registration.objects.get(user=user, event=self.get_object())
+        registration = Registration.objects.get(user=user, group=self.get_object())
         registration.status = 2
         registration.save()
         return super().get(request, *args, **kwargs)
