@@ -108,3 +108,42 @@ class GroupCreateView(DetailView, CreateView):
     def form_valid(self, form):
         form.instance.event = self.get_object()
         return super().form_valid(form)
+
+
+class RegistrationUpdateView(DetailView):
+    model = Registration
+    status = 1
+
+    def get(self, request, *args, **kwargs):
+        registration = self.get_object()
+        registration.status = self.status
+        registration.save()
+        return redirect('registrations-list', registration.group.id)
+
+
+class RegistrationPresentView(RegistrationUpdateView):
+    status = 2
+
+
+class RegistrationAbsentView(RegistrationUpdateView):
+    status = 3
+
+
+class RegistrationsListView(DetailView):
+    model = Group
+    template_name = "events/registrations-list.html"
+    pdf = False
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        event = self.get_object()
+        context['registrations'] = Registration.objects.filter(group=self.get_object()).order_by('user__first_name')
+        context['pdf'] = self.pdf
+        return context
+
+    def post(self, request, *args, **kwargs):
+        user = User.objects.get(username=request.POST['cpf'])
+        registration = Registration.objects.get(user=user, event=self.get_object())
+        registration.status = 2
+        registration.save()
+        return super().get(request, *args, **kwargs)

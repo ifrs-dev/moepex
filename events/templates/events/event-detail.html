@@ -26,6 +26,7 @@
               <th>Data</th>
               <th>Local</th>
               <th>Inscrição</th>
+              <th>Gerenciar Registros</th>
             </tr>
           </thead>
           <tbody>
@@ -48,6 +49,9 @@
                   {% endif %}
                   {% endcomment %}
                 </td>
+                <td>{% if request.user.is_superuser %}
+    <a class="btn btn-info" href="{% url 'registrations-list' object.pk %}"> Gerenciar
+    </a>{% endif %}</td>
               </tr>
             {% endfor %}
           </tbody>
