@@ -3,8 +3,9 @@
 {% block content %}
 
 <section>
-      <div class="container">
-{% include "events/registrations-table.html" %}
-</div>
+    <div class="container">
+        <a class="btn btn-success" href="{% url 'registrations-list-pdf' object.pk %}">Imprimir</a>
+        {% include "events/registrations-table.html" %}
+    </div>
 </section>
 {% endblock content %}

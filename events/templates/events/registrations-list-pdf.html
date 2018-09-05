@@ -1,0 +1,25 @@
+{% extends "easy_pdf/base.html" %}
+
+{% block content %}
+
+<h3>Listagem dos participantes do evento: {{ object.title }}</h3>
+
+<style type="text/css">
+td, th {
+	border: 1px solid black;
+	padding: 5px 0px 0px 5px;
+	text-align: left;
+	font-family: Sans-serif;
+	font-size: 12px;
+	border-collapse: collapse;
+	color: black;
+}
+h3{
+	font-family: serif;
+	font-size: 14px;
+}
+</style>
+
+{% include "events/registrations-table-pdf.html" %}
+
+{% endblock content %}

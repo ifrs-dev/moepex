@@ -1,5 +1,6 @@
 from datetime import date
 
+from easy_pdf.views import PDFTemplateResponseMixin
 from django.views.generic.edit import CreateView
 from django.views.generic import View, ListView, DetailView
 from django.shortcuts import redirect
@@ -144,3 +145,21 @@ class RegistrationsListView(DetailView):
         context['registrations'] = Registration.objects.filter(group=self.get_object()).order_by('user__first_name')
         context['pdf'] = self.pdf
         return context
+
+    def post(self, request, *args, **kwargs):
+        user = User.objects.get(username=request.POST['cpf'])
+        registration = Registration.objects.get(user=user, group=self.get_object())
+        registration.status = 2
+        registration.save()
+        return super().get(request, *args, **kwargs)
+
+class RegistrationsPDFView(RegistrationsListView, PDFTemplateResponseMixin):
+    template_name = 'events/registrations-list-pdf.html'
+    pdf = True
+
+class RegistrationDetailView(DetailView, PDFTemplateResponseMixin):
+    model = Registration
+    template_name = "registrations-detail-pdf.html"
+    page_size = 100
+    page_size_query_param = 'page_size'
+    max_page_size = 10000
