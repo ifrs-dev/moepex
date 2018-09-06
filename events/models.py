@@ -20,15 +20,15 @@ CHOICES_WORKLOADS = (
 )
 
 CHOICES_SHIFTS_4 = (
-    (1, '04/10/2018 Tarde'),
-    (2, '04/10/2018 Noite'),
+    (1, '04/10/2018 - 13:15 às 16:50'),
+    (2, '04/10/2018 - 19:00 às 22:30'),
 )
 
 CHOICES_SHIFTS_2 = (
-    (11, '04/10/2018 Tarde 1'),
-    (12, '04/10/2018 Tarde 2'),
-    (13, '04/10/2018 Noite 1'),
-    (14, '04/10/2018 Noite 2'),
+    (11, '04/10/2018 - 13:15 às 14:55'),
+    (12, '04/10/2018 - 15:10 às 16:50'),
+    (13, '04/10/2018 - 19:00 às 20:40'),
+    (14, '04/10/2018 - 20:50 às 22:30'),
 )
 
 CHOICES_SHIFTS = CHOICES_SHIFTS_2 + CHOICES_SHIFTS_4
@@ -54,8 +54,8 @@ class Experiment(models.Model):
     def get_author(self):
         authors = [u.get_full_name() for u in self.co_authors.all()]
         authors += [self.author.get_full_name()]
-        authors += [self.supervisor.get_full_name()]
-        print(authors)
+        if self.supervisor:
+            authors += [self.supervisor.get_full_name()]
         return ', '.join(authors)
 
 
@@ -76,7 +76,7 @@ class Event(models.Model):
     status = models.IntegerField(choices=CHOICES_STATUS_EVENT, default=1, verbose_name='Status')
     author = models.ForeignKey(User, verbose_name='Autor', on_delete=models.PROTECT, related_name='author_events')
     co_authors = models.ManyToManyField(User, verbose_name='Co-autores', related_name='co_authors_events', blank=True)
-    supervisor = models.ForeignKey(User, verbose_name='Orientador', on_delete=models.PROTECT, related_name='supervised_events')
+    supervisor = models.ForeignKey(User, verbose_name='Orientador', on_delete=models.PROTECT, related_name='supervised_events', blank=True, null=True)
 
     def __str__(self):
         return self.title
@@ -84,8 +84,8 @@ class Event(models.Model):
     def get_author(self):
         authors = [u.get_full_name() for u in self.co_authors.all()]
         authors += [self.author.get_full_name()]
-        authors += [self.supervisor.get_full_name()]
-        print(authors)
+        if self.supervisor:
+            authors += [self.supervisor.get_full_name()]
         return ', '.join(authors)
 
 
@@ -94,6 +94,7 @@ class Group(models.Model):
     class Meta:
         verbose_name = "Turma"
         verbose_name_plural = "Turmas"
+        unique_together = ['event', 'shift']
 
     event = models.ForeignKey(Event, on_delete=models.PROTECT, related_name='groups')
     shift = models.PositiveIntegerField(choices=CHOICES_SHIFTS, verbose_name='Data')

@@ -1,0 +1,29 @@
+<table class="table table-hover">
+  <thead class="bg-dark">
+    <tr>
+      <th>Nome</th>
+      <th>Cpf</th>
+      <th width="350px">E-mail</th>
+      <th>Status</th>
+      <th>Presença</th>
+      
+    </tr>
+  </thead>
+  <tbody>
+    {% for object in registrations %}
+    <tr>
+      <td>{{ object.user.get_full_name }}</td>
+      <td>{{ object.user.username }}</td>
+      <td>{{ object.user.email }}</td>
+      <td>{{ object.get_status_display }}</td>
+        
+      <td>
+        <a href="{% url 'registration-present' object.pk %}" class="btn btn-success Presenca">Presente
+       </a>
+       <a href="{% url 'registration-absent' object.pk %}" class="btn btn-danger Presenca">Ausente
+       </a>
+     </td>
+   </tr>
+   {% endfor %}
+ </tbody>
+</table>
