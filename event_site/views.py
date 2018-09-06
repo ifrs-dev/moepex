@@ -20,7 +20,6 @@ class HomeView(ListView):
         context = super().get_context_data()
         context['experiments'] = Experiment.objects.filter(status=2)
         context['events'] = Event.objects.filter(status=2)
-        context['users'] = User.objects.all()
         return context
 
 

@@ -6,11 +6,7 @@
 {% block page_title %}Cadastro{% endblock page_title %}
 
 {% block content %}
-
-    <form method="post">
-
-    {% csrf_token %}
-
+  <form method="post">
    <section>
       <div class="container">
         <div class="row">
@@ -21,14 +17,11 @@
             {{ form|bootstrap }}
             {% csrf_token %}
             <button type="submit">Cadastrar</button>
-            <input type="submit" value="value">
           </div>
         </div>
       </div>
     </section>
-
   </form>
-
 {% endblock %}
 
 {% block js %}

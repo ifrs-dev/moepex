@@ -94,6 +94,7 @@ class Group(models.Model):
     class Meta:
         verbose_name = "Turma"
         verbose_name_plural = "Turmas"
+        unique_together = ['event', 'shift']
 
     event = models.ForeignKey(Event, on_delete=models.PROTECT, related_name='groups')
     shift = models.PositiveIntegerField(choices=CHOICES_SHIFTS, verbose_name='Data')
