@@ -6,11 +6,7 @@
 {% block page_title %}Cadastro{% endblock page_title %}
 
 {% block content %}
-
-    <form method="post" action="{% url 'login' %}">
-
-    {% csrf_token %}
-
+  <form method="post">
    <section>
       <div class="container">
         <div class="row">
@@ -19,14 +15,13 @@
             <p>Caso seja um aluno regular, não é necessário realizar o cadastro, seus dados de acesso são CPF e a senha é seu número de matrícula. Caso seja professor ou técnico administrativo, sua senha é o seu número de SIAP.
             <a href="{% url 'login' %}">Clique aqui para realizar o login</a></p>
             {{ form|bootstrap }}
+            {% csrf_token %}
             <button type="submit">Cadastrar</button>
           </div>
         </div>
       </div>
     </section>
-
   </form>
-
 {% endblock %}
 
 {% block js %}

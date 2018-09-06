@@ -20,40 +20,24 @@
     <section class="background-gray-lightest">
       <div class="container">
         <div class="row">
-          <div class="col-md-3">
-            <div class="post" align="center">
-              <p class="h1" align="center">{{ users.count }}</p>
-              <p class="h3" align="center">Participantes</p>
-              <p class="read-more">
-                <a href="{% url 'signup' %}" class="btn btn-ghost">Realizar Inscrição</a>
-              </p>
+          <div class="col-md-12">
+            <div class="h2" align="center">
+              Participe da MOEPEX
             </div>
           </div>
-          <div class="col-md-3">
+          <div class="col-md-2 col-md-offset-2">
             <div class="post" align="center">
-              <p class="h1" align="center">0</p>
-              <p class="h3" align="center">Apresentações</p>
-              <p class="read-more">
-                <a href="{% url 'presentation' %}" class="btn btn-ghost">Submeter</a>
-              </p>
+                <a href="{% url 'event-create' %}" class="btn btn-ghost">Minicurso</a>
             </div>
           </div>
-          <div class="col-md-3">
+          <div class="col-md-4">
             <div class="post" align="center">
-              <p class="h1" align="center">{{ events.count }}</p>
-              <p class="h3" align="center">Minicursos</p>
-              <p class="read-more">
-                <a href="{% url 'event-create' %}" class="btn btn-ghost">Submeter</a>
-              </p>
+              <a href="{% url 'presentation' %}" class="btn btn-ghost">Apresentaçõe Oral ou Poster</a>
             </div>
           </div>
-          <div class="col-md-3">
+          <div class="col-md-2">
             <div class="post" align="center">
-              <p class="h1" align="center">{{ experiments.count }}</p>
-              <p class="h3" align="center">Trabalhos</p>
-              <p class="read-more">
-                <a href="{% url 'experiment-create' %}" class="btn btn-ghost">Submeter</a>
-              </p>
+              <a href="{% url 'experiment-create' %}" class="btn btn-ghost">Trabalho</a>
             </div>
           </div>
         </div>

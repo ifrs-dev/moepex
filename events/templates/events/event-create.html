@@ -20,5 +20,9 @@
 {% block js %}
   <script type="text/javascript">
     $('#id_author').parent().parent().hide();
+    $( document ).ready(function() {
+      $('#id_co_authors').select2({ maximumSelectionLength: 5, "language": "pt-BR"});
+
+    });
   </script>
 {% endblock js %}
