@@ -99,10 +99,11 @@ class GroupCreateView(DetailView, CreateView):
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
         event = self.get_object()
+        EXCLUDE = [(e.shift, e.get_shift_display()) for e in event.groups.all()]
         if event.workload == 1:
-            kwargs['choices'] = CHOICES_SHIFTS_2
+            kwargs['choices'] = set(CHOICES_SHIFTS_2) - set(EXCLUDE)
         else:
-            kwargs['choices'] = CHOICES_SHIFTS_4
+            kwargs['choices'] = set(CHOICES_SHIFTS_4) - set(EXCLUDE)
         return kwargs
 
     def get(self, request, *args, **kwargs):

@@ -1,11 +1,15 @@
 {% extends "event_site/base.html" %}
 
 {% block content %}
-
 <section>
     <div class="container">
-        <a class="btn btn-success" href="{% url 'registrations-list-pdf' object.pk %}">Imprimir</a>
         {% include "events/registrations-table.html" %}
+        <hr>
+        <p align="right ">
+          <a class="btn btn-success" href="{% url 'registrations-list-pdf' object.pk %}">
+            Imprimir lista de presença
+          </a>
+      </p>
     </div>
 </section>
 {% endblock content %}
