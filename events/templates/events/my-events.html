@@ -38,7 +38,7 @@
           <tbody>
             {% for event in request.user.author_events.all %}
               <tr>
-                <td>{{ event.title }}</td>
+                <td><a href="{% url 'event-detail' event.pk %}">{{ event.title }}</a></td>
                 <td>Minicurso</td>
                 <td>{{ event.get_status_display }}</td>
                 <td><a href="{% url 'group-list' event.pk %}">turmas</a></td>

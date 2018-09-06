@@ -15,7 +15,7 @@ urlpatterns = [
     path('login/', auth_views.LoginView.as_view(), name="login"),
     path('change_password', views_event_site.change_password, name='change_password'),
     path('logout/', auth_views.LogoutView.as_view(), name="logout"),
-    path('signup/', views_event_site.SignUpView.as_view(), name='signup'),
+    path('cadastro/', views_event_site.SignUpView.as_view(), name='signup'),
     path('admin/', admin.site.urls),
     path('', include('events.urls')),
 ]

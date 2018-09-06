@@ -19,8 +19,7 @@
             <thead>
             <tr>
               <th>Turma</th>
-              <th>Data</th>
-              <th>Horário</th>
+              <th>Data - Hora</th>
               <th>Local</th>
             </tr>
             </thead>
@@ -28,8 +27,7 @@
               {% for group in object.groups.all %}
                 <tr>
                   <td>{{ group }}</td>
-                  <td>{{ group.get_date_display }}</td>
-                  <td>{{ group.datetime|date:"g:i" }}</td>
+                  <td>{{ group.get_shift_display }}</td>
                   <td>{{ group.local|default_if_none:"A definir" }}</td>
                 </tr>
               {% endfor %}
