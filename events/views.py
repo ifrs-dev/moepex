@@ -32,7 +32,7 @@ class ExperimentCreateView(CreateView):
     model = Experiment
     template_name = 'events/event-create.html'
     form_class = ExperimentForm
-    success_url = reverse_lazy('home')
+    success_url = reverse_lazy('my-events')
 
     def get_initial(self):
         initial = super().get_initial()
