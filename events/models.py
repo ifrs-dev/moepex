@@ -1,6 +1,10 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+def get_name(self):
+    return self.get_full_name()
+
+User.add_to_class("__str__", get_name)
 
 CHOICES_STATUS_EVENT = (
     (1, "Submetido"),
@@ -101,7 +105,7 @@ class Group(models.Model):
     local = models.CharField(max_length=100, verbose_name='Local', null=True, blank=True)
 
     def __str__(self):
-        return 'Turma ' + str(self.id)
+        return '%s - %s' % (self.event.title, self.get_shift_display())
 
 
 class Registration(models.Model):
