@@ -6,6 +6,8 @@ from django.views.generic import View, ListView, DetailView
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.contrib.auth.models import User
+from django.http import HttpResponse
+import csv
 
 from events.models import Event, Registration, Group, Experiment, CHOICES_SHIFTS_2, CHOICES_SHIFTS_4
 from events.forms import EventForm, ExperimentForm, GroupForm
@@ -164,3 +166,13 @@ class RegistrationDetailView(DetailView, PDFTemplateResponseMixin):
     page_size = 100
     page_size_query_param = 'page_size'
     max_page_size = 10000
+
+
+def getfile(request):
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="inscritos.csv"'
+    r = Registration.objects.all()
+    writer = csv.writer(response)
+    for r in registrations:
+        writer.writerow([registrations.user.get_full_name, registrations.get_status_display])
+    return response
