@@ -6,6 +6,8 @@ from django.views.generic import View, ListView, DetailView
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.contrib.auth.models import User
+from django.http import HttpResponse
+import csv
 
 from events.models import Event, Registration, Group, Experiment, CHOICES_SHIFTS_2, CHOICES_SHIFTS_4
 from events.forms import EventForm, ExperimentForm, GroupForm
@@ -45,23 +47,13 @@ class EventDetailView(DetailView):
     template_name = 'events/event-detail.html'
 
     def get_context_data(self, *args, **kwargs):
-        context = super().get_context_data()
+        event = self.get_object()
         user = self.request.user
-        context['groups'] = Group.objects.filter(event=self.get_object())
-
-        if not user.is_authenticated:
-            context['registred'] = 'not_user'
-        else:
-            try:
-                events = Registration.objects.filter(group__event=self.get_object(), user=user)
-                if events.exists():
-                    context['registred'] = 'valid'
-            except:
-                pass
-            if user == self.get_object().author:
-                context['author'] = True
-            else:
-                context['author'] = False
+        try:
+            context = super().get_context_data(*args, **kwargs)
+            context['registration'] = Registration.objects.get(group__event=event, user=user)
+        except:
+            context['registration'] = False
         return context
 
 
@@ -77,6 +69,12 @@ class EventRegistrationView(DetailView):
         Registration.objects.create(group=self.get_object(), user=request.user)
         return redirect('event-detail', self.get_object().event.pk)
 
+class EventRegistrationDeleteView(DetailView):
+    model = Group
+
+    def get(self, request, *args, **kwargs):
+        Registration.objects.get(group=self.get_object(), user=request.user).delete()
+        return redirect('event-detail', self.get_object().event.pk)
 
 class MyRegistrationsListView(ListView):
     model = Registration
@@ -164,3 +162,33 @@ class RegistrationDetailView(DetailView, PDFTemplateResponseMixin):
     page_size = 100
     page_size_query_param = 'page_size'
     max_page_size = 10000
+
+def build_row(user, events, role='Ouvinte'):
+    row = ['', '', '', role, 'VII MOEPEX - Mostra de Ensino Pesquisa e Extensão', '', '4 de outubro de 2018', '']
+    row[0] = user.get_full_name()
+    row[1] = user.username
+    row[2] = user.email
+    row[5] = event.title
+    row[7] = 'totalizando %i horas' % (event.workload*2)
+    return row
+
+
+def getfile(request):
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="inscritos.csv"'
+    writer = csv.writer(response)
+    writer.writerow(['NOME_PARTICIPANTE','CPF_PARTICIPANTE','EMAIL_PARTICIPANTE','CONDICAO_PARTICIPACAO','FORMA_ACAO','TITULO_ACAO','PERIODO_REALIZACAO','CARGA_HORARIA'])
+
+
+    registrations = Registration.objects.all()
+    for r in registrations:
+
+        writer.writerow(build_row(r.user, r.group.event))
+
+    events = Event.objects.all()
+
+    #for event in events.values_list('author')
+
+
+
+    return response
