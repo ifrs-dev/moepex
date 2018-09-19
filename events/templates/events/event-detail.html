@@ -1,5 +1,6 @@
 {% extends "event_site/base.html" %}
 {% load static %}
+{% load check_conflict %}
 
 {% block page_title %}Minicurso{% endblock page_title %}
 
@@ -16,7 +17,7 @@
         <div class="col-md-6">
           <p><h4>Público Alvo:</h4> {{ object.public }}</p>
           <p><h4>Pré-requisitos:</h4> {{ object.requirements }}</p>
-          <p><h4>Carga Horária:</h4> {{ object.workload }}</p>
+          <p><h4>Carga Horária:</h4> {{ object.get_workload_display }}</p>
           <p><h4>Vagas:</h4> {{ object.vacancies }}</p>
         </div>
         <table class="table">
@@ -30,24 +31,27 @@
             </tr>
           </thead>
           <tbody>
-            {% for group in groups %}
+            {% for group in event.groups.all %}
               <tr>
                 <td>{{ group }}</td>
                 <td>{{ group.get_shift_display }}</td>
                 <td>{{ group.local|default_if_none:"A definir" }}</td>
                 <td>
-                  <b>Em breve</b>
-                  {% comment %}
-                  {% if registred == 'not_user' %}
+                  {% if registration %}
+                    {% if registration.group == group %}
+                      <a class="btn btn-success" href="{% url 'event-delete-registration' group.id %}" >Inscrito (Clique aqui para CANCELAR)</a>
+                    {% else %}
+                      <button class="btn btn-success" disabled>Inscrito em outra turma</button>
+                    {% endif %}
+                  {% elif not request.user.is_authenticated %}
                     <button class="btn btn-danger" disabled>Necessário Login Para Inscrição</button>
-                  {% elif group.registrations > group.vacancies %}
-                    <button class="btn btn-danger" disabled>Esgotado</button>
-                  {% elif registred == 'valid' %}
-                    <button class="btn btn-success" disabled>Inscrito</button>
+                  {% elif group.registrations.count >= group.event.vacancies %}
+                      <button class="btn btn-danger" disabled>Esgotado</button>
+                  {% elif group|check:request.user %}
+                    <button class="btn btn-danger" disabled>Conflito de horário</button>
                   {% else %}
                     <a href="{% url 'event-registration' group.pk %}" class="btn btn-success btn-info">Realizar Inscrição</a>
                   {% endif %}
-                  {% endcomment %}
                 </td>
                 {% if request.user.is_superuser or author %}<td>
     <a class="btn btn-info" href="{% url 'registrations-list' object.pk %}"> Gerenciar

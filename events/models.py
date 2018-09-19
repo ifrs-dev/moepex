@@ -115,7 +115,7 @@ class Registration(models.Model):
         verbose_name = 'Inscrição'
         verbose_name_plural = 'Inscrições'
 
-    group = models.ForeignKey(Group, on_delete=models.PROTECT)
+    group = models.ForeignKey(Group, on_delete=models.PROTECT, related_name='registrations')
     user = models.ForeignKey(User, on_delete=models.PROTECT, related_name='registrations')
     status = models.IntegerField(choices=CHOICES_STATUS_REGISTRATION, default=1)
 
