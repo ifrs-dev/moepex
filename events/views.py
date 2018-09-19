@@ -167,12 +167,33 @@ class RegistrationDetailView(DetailView, PDFTemplateResponseMixin):
     page_size_query_param = 'page_size'
     max_page_size = 10000
 
+def build_row(user, events, role='Ouvinte'):
+    row = ['', '', '', role, 'VII MOEPEX - Mostra de Ensino Pesquisa e Extensão', '', '4 de outubro de 2018', '']
+    row[0] = user.get_full_name()
+    row[1] = user.username
+    row[2] = user.email
+    row[5] = event.title
+    row[7] = 'totalizando %i horas' % (event.workload*2)
+    return row
+
 
 def getfile(request):
     response = HttpResponse(content_type='text/csv')
     response['Content-Disposition'] = 'attachment; filename="inscritos.csv"'
-    r = Registration.objects.all()
     writer = csv.writer(response)
+    writer.writerow(['NOME_PARTICIPANTE','CPF_PARTICIPANTE','EMAIL_PARTICIPANTE','CONDICAO_PARTICIPACAO','FORMA_ACAO','TITULO_ACAO','PERIODO_REALIZACAO','CARGA_HORARIA'])
+
+
+    registrations = Registration.objects.all()
     for r in registrations:
-        writer.writerow([registrations.user.get_full_name, registrations.get_status_display])
+        
+        writer.writerow(build_row(r.user, r.group.event))
+        
+    events = Event.objects.all()
+
+    #for event in events.values_list('author')
+
+
+
     return response
+

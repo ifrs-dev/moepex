@@ -36,8 +36,7 @@
                 <td>{{ group.get_shift_display }}</td>
                 <td>{{ group.local|default_if_none:"A definir" }}</td>
                 <td>
-                  <b>Em breve</b>
-                  {% comment %}
+
                   {% if registred == 'not_user' %}
                     <button class="btn btn-danger" disabled>Necessário Login Para Inscrição</button>
                   {% elif group.registrations > group.vacancies %}
@@ -47,7 +46,7 @@
                   {% else %}
                     <a href="{% url 'event-registration' group.pk %}" class="btn btn-success btn-info">Realizar Inscrição</a>
                   {% endif %}
-                  {% endcomment %}
+
                 </td>
                 {% if request.user.is_superuser or author %}<td>
     <a class="btn btn-info" href="{% url 'registrations-list' object.pk %}"> Gerenciar
