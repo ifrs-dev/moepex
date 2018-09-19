@@ -14,6 +14,7 @@ urlpatterns = [
     path('minicurso/novo/', login_required(views_events.EventCreateView.as_view()), name='event-create'),
     path('minicurso/<int:pk>/turmas/', login_required(views_events.GroupListView.as_view()), name='group-list'),
     path('minicurso/inscricao/<int:pk>/', login_required(views_events.EventRegistrationView.as_view()), name="event-registration"),
+    path('minicurso/cancelar-inscricao/<int:pk>/', login_required(views_events.EventRegistrationDeleteView.as_view()), name="event-delete-registration"),
     path('minicurso/<int:pk>/participantes/', login_required(views_events.RegistrationsListView.as_view()), name="registrations-list"),
     path('minicurso/<int:pk>/participantes/imprimir/', login_required(views_events.RegistrationsPDFView.as_view()), name="registrations-list-pdf"),
     path('minicurso/presenca/<int:pk>/', login_required(views_events.RegistrationPresentView.as_view()), name="registration-present"),

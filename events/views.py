@@ -47,23 +47,13 @@ class EventDetailView(DetailView):
     template_name = 'events/event-detail.html'
 
     def get_context_data(self, *args, **kwargs):
-        context = super().get_context_data()
+        event = self.get_object()
         user = self.request.user
-        context['groups'] = Group.objects.filter(event=self.get_object())
-
-        if not user.is_authenticated:
-            context['registred'] = 'not_user'
-        else:
-            try:
-                events = Registration.objects.filter(group__event=self.get_object(), user=user)
-                if events.exists():
-                    context['registred'] = 'valid'
-            except:
-                pass
-            if user == self.get_object().author:
-                context['author'] = True
-            else:
-                context['author'] = False
+        try:
+            context = super().get_context_data(*args, **kwargs)
+            context['registration'] = Registration.objects.get(group__event=event, user=user)
+        except:
+            context['registration'] = False
         return context
 
 
@@ -79,6 +69,12 @@ class EventRegistrationView(DetailView):
         Registration.objects.create(group=self.get_object(), user=request.user)
         return redirect('event-detail', self.get_object().event.pk)
 
+class EventRegistrationDeleteView(DetailView):
+    model = Group
+
+    def get(self, request, *args, **kwargs):
+        Registration.objects.get(group=self.get_object(), user=request.user).delete()
+        return redirect('event-detail', self.get_object().event.pk)
 
 class MyRegistrationsListView(ListView):
     model = Registration
@@ -186,9 +182,9 @@ def getfile(request):
 
     registrations = Registration.objects.all()
     for r in registrations:
-        
+
         writer.writerow(build_row(r.user, r.group.event))
-        
+
     events = Event.objects.all()
 
     #for event in events.values_list('author')
@@ -196,4 +192,3 @@ def getfile(request):
 
 
     return response
-
