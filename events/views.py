@@ -168,9 +168,10 @@ def build_row(user, events, role='Ouvinte'):
     row[0] = user.get_full_name()
     row[1] = user.username
     row[2] = user.email
-    row[5] = event.title
-    row[7] = 'totalizando %i horas' % (event.workload*2)
+    row[5] = events.title
+    row[7] = 'totalizando %i horas' % (events.workload*2)
     return row
+
 
 
 def getfile(request):
@@ -180,7 +181,7 @@ def getfile(request):
     writer.writerow(['NOME_PARTICIPANTE','CPF_PARTICIPANTE','EMAIL_PARTICIPANTE','CONDICAO_PARTICIPACAO','FORMA_ACAO','TITULO_ACAO','PERIODO_REALIZACAO','CARGA_HORARIA'])
 
 
-    registrations = Registration.objects.all()
+    registrations = Registration.objects.all().filter(status=2)
     for r in registrations:
 
         writer.writerow(build_row(r.user, r.group.event))
