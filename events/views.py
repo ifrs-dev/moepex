@@ -176,7 +176,7 @@ def build_row(user, events, role='Ouvinte'):
 
 def getfile(request):
     response = HttpResponse(content_type='text/csv')
-    response['Content-Disposition'] = 'attachment; filename="inscritos.csv"'
+    response['Content-Disposition'] = 'attachment; filename="ouvintes.csv"'
     writer = csv.writer(response)
     writer.writerow(['NOME_PARTICIPANTE','CPF_PARTICIPANTE','EMAIL_PARTICIPANTE','CONDICAO_PARTICIPACAO','FORMA_ACAO','TITULO_ACAO','PERIODO_REALIZACAO','CARGA_HORARIA'])
 
@@ -186,9 +186,15 @@ def getfile(request):
 
         writer.writerow(build_row(r.user, r.group.event))
 
-    events = Event.objects.all()
+    events = Event.objects.filter(status=2)
 
-    #for event in events.values_list('author')
+    for event in events:
+        writer.writerow(build_row(event.author, event, 'Ministrante'))
+        if event.supervisor:
+            writer.writerow(build_row(event.supervisor, event, 'Ministrante'))
+        for coautor in event.co_authors.all():
+            writer.writerow(build_row(coautor, event, 'Ministrante'))
+
 
 
 

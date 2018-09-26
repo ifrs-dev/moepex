@@ -16,13 +16,19 @@
       <td>{{ object.user.username }}</td>
       <td>{{ object.user.email }}</td>
       <td>{{ object.get_status_display }}</td>
-        
       <td>
+
+        {% if object.status == 3 %}
         <a href="{% url 'registration-present' object.pk %}" class="btn btn-success Presenca">Presente
        </a>
+       {% endif %}
+       {% if object.status == 2 %}
        <a href="{% url 'registration-absent' object.pk %}" class="btn btn-danger Presenca">Ausente
        </a>
+       {% endif %}
+
      </td>
+
    </tr>
    {% endfor %}
  </tbody>
