@@ -1,4 +1,5 @@
 {% extends "event_site/base.html" %}
+{% load static %}
 
 {% block page_title %}Programação{% endblock page_title %}
 
@@ -7,7 +8,14 @@
    <section>
       <div class="container">
         <h1 align="center">Programação da 7º MOEPEX</h1>
-        <br>
+	<strong>
+	<p align="center">
+	<a href="{% static 'posters.pdf' %}" target="_blank">Horários e locais de apresentação Oral</a>
+	|
+        <a href="{% static 'apresentacoes-orais.pdf' %}" target="_blank">Horários e locais de apresentação Poster</a>
+	</p>
+	</strong>
+	<br>
         <table class="table">
           <tr>
             <th>Turno</th>

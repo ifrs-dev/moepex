@@ -1,6 +1,6 @@
 from .main import *
 
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['moepex.ibiruba.ifrs.edu.br']
 
