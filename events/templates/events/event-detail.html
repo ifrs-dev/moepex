@@ -24,7 +24,6 @@
           <thead>
             <tr>
               <th>Turma</th>
-              <th>Data</th>
               <th>Local</th>
               <th>Inscrição</th>{% if request.user.is_superuser %}
               <th>Gerenciar Registros</th>{% endif %}
@@ -34,9 +33,10 @@
             {% for group in event.groups.all %}
               <tr>
                 <td>{{ group }}</td>
-                <td>{{ group.get_shift_display }}</td>
                 <td>{{ group.local|default_if_none:"A definir" }}</td>
                 <td>
+		Inscrições encerradas
+		{% comment %}	
                   {% if registration %}
                     {% if registration.group == group %}
                       <a class="btn btn-success" href="{% url 'event-delete-registration' group.id %}" >Inscrito (Clique aqui para CANCELAR)</a>
@@ -47,14 +47,15 @@
                     <button class="btn btn-danger" disabled>Necessário Login Para Inscrição</button>
                   {% elif group.registrations.count >= group.event.vacancies %}
                       <button class="btn btn-danger" disabled>Esgotado</button>
-                  {% elif group|check:request.user %}
+		  {% elif not and group|check:request.user %}
                     <button class="btn btn-danger" disabled>Conflito de horário</button>
                   {% else %}
                     <a href="{% url 'event-registration' group.pk %}" class="btn btn-success btn-info">Realizar Inscrição</a>
                   {% endif %}
+		{% endcomment %}
                 </td>
-                {% if request.user.is_superuser or author %}<td>
-    <a class="btn btn-info" href="{% url 'registrations-list' object.pk %}"> Gerenciar
+                {% if request.user.is_staff or  request.user == object.author %}<td>
+    <a class="btn btn-info" href="{% url 'registrations-list' group.pk %}"> Gerenciar
     </a></td>{% endif %}
               </tr>
             {% endfor %}

@@ -40,13 +40,15 @@
           <div id="navigation" class="collapse navbar-collapse navbar-right">
             <ul class="nav navbar-nav">
               <li><a href="{% url 'program'%}">Programação</a></li>
-              <li class="dropdown"><a href="#" data-toggle="dropdown" class="dropdown-toggle">Submissão<b class="caret"></b></a>
+              {% comment %}
+		<li class="dropdown"><a href="#" data-toggle="dropdown" class="dropdown-toggle">Submissão<b class="caret"></b></a>
                 <ul class="dropdown-menu">
                   <li><a href="{% url 'presentation' %}">Pôster e Apresentação Oral</a></li>
                   <li><a href="{% url 'experiment-create' %}">Mostra de Trabalhos</a></li>
                   <li><a href="{% url 'event-create' %}">Minicurso</a></li>
                 </ul>
               </li>
+		{% endcomment %}
               <li class="dropdown"><a href="#" data-toggle="dropdown" class="dropdown-toggle">Modelos<b class="caret"></b></a>
                 <ul class="dropdown-menu">
                   <li><a href="{% static 'docs/modelo-resumo.docx'%}">MODELO DE RESUMO</a></li>
@@ -55,7 +57,12 @@
                 </ul>
               </li>
               <li><a href="{% static 'docs/regulamento-geral.pdf'%}" target="_blank">Regulamento</a></li>
+ <li><a href="https://eventos.ifrs.edu.br/index.php/MoEPExIbiruba/7moepex/schedConf/presentations
+" target="_blank">Anais</a></li>
             </ul>
+            <a href="{% url 'csv-trabalhos' %}" class="btn navbar-btn btn-ghost" data-toggle="tooltip" data-placement="bottom" title="Arquivo CSV para certificado">
+                  <i class="fa fa-download"></i>
+                </a>
             {% if request.user.is_authenticated %}
               <a href="{% url 'change_password'%}" class="btn navbar-btn btn-ghost" data-toggle="tooltip" data-placement="bottom" title="Alterar senha">
                 <i class="fa fa-key"></i>

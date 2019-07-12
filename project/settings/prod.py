@@ -1,8 +1,8 @@
 from .main import *
 
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['192.168.56.41']
+ALLOWED_HOSTS = ['moepex.ibiruba.ifrs.edu.br']
 
 DATABASES = {
     'default': {
