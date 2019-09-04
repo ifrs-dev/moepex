@@ -1,6 +1,5 @@
-{% extends "event_site/base.html" %}
+{% extends "base.html" %}
 
-{% block jumbotron %}{% endblock jumbotron %}
 {% block page_title %}Login{% endblock page_title %}
 
 {% block content %}
@@ -16,7 +15,9 @@
             <h3 align="center">Comos acessar o sistema</h3>
             <p><b>Alunos:</b> Alunos regulares do ensino superior e técnico integrado já estão cadastrados, para acessar basta inserir o CPF e no campo da senha inserir o número de matrícula do SIA (sem o 0 inicial). A senha pode <b>e deve</b> ser alterada após o primeiro acesso.</p>
             <p><b>Servidores:</b> Servidores já estão cadastrados, para acessar basta inserir o CPF, e no campo da senha inserir o número matrícula SIAP. A senha pode <b>e deve</b> ser altera após o primeiro acesso.</p>
+            {% comment %}
             <p><b>Comunidade Externa:</b> É necessário realizar cadastro, por meio deste <a href="{% url 'signup' %}">formulário</a>.</p>
+            {% endcomment %}
             <p align="center"></p>
         </div>
         <div class="col-md-4 col-md-offset-1">
@@ -52,10 +53,3 @@
   $('#id_username').mask('000.000.000-00', {reverse: true});
 </script>
 {% endblock js %}
-
-{% block script %}
-    <script type="text/javascript">
-        alert('teste');
-        //https://igorescobar.github.io/jQuery-Mask-Plugin/docs.html
-    </script>
-{% endblock script %}

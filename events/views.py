@@ -9,8 +9,8 @@ from django.contrib.auth.models import User
 from django.http import HttpResponse
 import csv
 
-from events.models import Event, Registration, Group, Experiment, CHOICES_SHIFTS_2, CHOICES_SHIFTS_4
-from events.forms import EventForm, ExperimentForm, GroupForm
+from events.models import Event, Registration, Group, CHOICES_SHIFTS_2, CHOICES_SHIFTS_4
+from events.forms import EventForm, GroupForm
 
 
 class EventCreateView(CreateView):
@@ -24,17 +24,6 @@ class EventCreateView(CreateView):
     def form_valid(self, form):
         self.object = form.save()
         return super().form_valid(form)
-
-    def get_initial(self):
-        initial = super().get_initial()
-        initial['author'] = self.request.user.pk
-        return initial
-
-class ExperimentCreateView(CreateView):
-    model = Experiment
-    template_name = 'events/event-create.html'
-    form_class = ExperimentForm
-    success_url = reverse_lazy('my-events')
 
     def get_initial(self):
         initial = super().get_initial()
@@ -56,10 +45,6 @@ class EventDetailView(DetailView):
             context['registration'] = False
         return context
 
-
-class ExperimentDetailView(DetailView):
-    model = Experiment
-    template_name = 'experiments/experiment-detail.html'
 
 
 class EventRegistrationView(DetailView):
@@ -192,20 +177,4 @@ def getfile(request):
             writer.writerow(build_row(event.supervisor, event, 'Ministrante'))
         for coautor in event.co_authors.all():
             writer.writerow(build_row(coautor, event, 'Ministrante'))
-    return response
-
-def getfile_trabalhos(request):
-    response = HttpResponse(content_type='text/csv')
-    response['Content-Disposition'] = 'attachment; filename="certificados.csv"'
-    writer = csv.writer(response)
-    writer.writerow(['NOME_PARTICIPANTE','CPF_PARTICIPANTE','EMAIL_PARTICIPANTE','CONDICAO_PARTICIPACAO','FORMA_ACAO','TITULO_ACAO','PERIODO_REALIZACAO','CARGA_HORARIA'])
-
-    events = Experiment.objects.filter(status=2)
-
-    for event in events:
-        writer.writerow(build_row(event.author, event, 'autor(a)'))
-        if event.supervisor:
-            writer.writerow(build_row(event.supervisor, event, 'orientador(a)'))
-        for coautor in event.co_authors.all():
-            writer.writerow(build_row(coautor, event, 'co-autor(a)'))
     return response

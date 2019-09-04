@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+    <section>
+      <div class="container">
+        <article class="lead" align="justify">
+          <b>
+            Participe da Mostra de minicursos:
+            <a href="{% url 'event-create' %}">Cadastrar minicurso</a>
+          </b>
+        </article>
+      </div>
+    </section>
+    <section class="background-gray-lightest">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="h2" align="center">
+              minicursos Inscritos
+            </div>
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Título</th>
+                  <th>Descrição</th>
+                </tr>
+              </thead>
+              <tbody>
+              {% for event in events %}
+                <tr>
+                  <td> <a href="{% url 'event-detail' event.pk %}">{{ event.title }}</a></td>
+                  <td>{{ event.description|truncatechars:70 }}</td>
+                </tr>
+              {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+{% endblock content %}

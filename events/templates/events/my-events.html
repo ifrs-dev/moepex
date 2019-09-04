@@ -44,14 +44,6 @@
                 <td><a href="{% url 'group-list' event.pk %}">turmas</a></td>
               </tr>
             {% endfor %}
-            {% for experiment in request.user.author_experiments.all %}
-              <tr>
-                <td>{{ experiment.title }}</td>
-                <td>Experimento</td>
-                <td>{{ experiment.get_status_display }}</td>
-                <td>-</td>
-              </tr>
-            {% endfor %}
           </tbody>
         </table>
       </div>
