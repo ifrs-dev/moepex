@@ -12,7 +12,7 @@ class HomeView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["events"] = event.objects.all()
+        context["events"] = Event.objects.all()
         return context
 
 
@@ -54,7 +54,7 @@ def get_certified(request):
     writer = csv.writer(response)
     writer.writerow(['NOME_PARTICIPANTE','CPF_PARTICIPANTE','EMAIL_PARTICIPANTE','CONDICAO_PARTICIPACAO','FORMA_ACAO','TITULO_ACAO','PERIODO_REALIZACAO','CARGA_HORARIA'])
 
-    events = event.objects.filter(status=2)
+    events = Event.objects.filter(status=2)
 
     for event in events:
         writer.writerow(build_row(event.author, event, 'autor(a)'))
