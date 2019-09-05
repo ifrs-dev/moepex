@@ -39,8 +39,14 @@
           </div>
           <div id="navigation" class="collapse navbar-collapse navbar-right">
             <ul class="nav navbar-nav">
+              <li>
+                <a target="_blank" href="https://eventos.ifrs.edu.br/index.php/MoEPExIbiruba/8moepex">
+                  Submissão de Trabalhos
+                </a>
+              </li>
               {% if request.user.is_authenticated %}
-                <li><a href="{% url 'event-create' %}">Cadastrar minicurso</a></li>
+                <li><a href="{% url 'event-create' %}">Cadastrar Minicurso</a></li>
+                <li><a href="{% url 'my-events' %}">Meus Minicursos</a></li>
                 {% if request.user.is_staff %}
                   <a href="{% url 'admin:index' %}" class="btn navbar-btn btn-ghost" data-toggle="tooltip" data-placement="bottom" title="Admin">
                     <i class="fa fa-lock"></i>
@@ -53,9 +59,6 @@
                   </a>
                   <a href="{% url 'serv-importer' %}" class="btn navbar-btn btn-ghost" data-toggle="tooltip" data-placement="bottom" title="Importar Servidores">
                     <i class="fa fa-upload" aria-hidden="true"></i>
-                  </a>
-                  <a href="{% url 'get-certifieds' %}" class="btn navbar-btn btn-ghost" data-toggle="tooltip" data-placement="bottom" title="Importar Servidores">
-                    <i class="fa fa-download" aria-hidden="true"></i>
                   </a>
                 {% endif %}
                 <a href="{% url 'logout' %}" class="btn navbar-btn btn-ghost" data-toggle="tooltip" data-placement="bottom" title="Sair">

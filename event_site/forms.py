@@ -73,11 +73,14 @@ class ImportFormServ(ImportForm):
                 first_name = name[0]
                 last_name = ' '.join(name[1:])
                 password = fields[0].replace('"', '').strip()
-                user, created = User.objects.get_or_create(username=username, first_name=first_name, last_name=last_name)
-                serv_group.user_set.add(user)
-                if created:
-                    user.set_password(password)
-                    user.save()
+                try:
+                    user, created = User.objects.get_or_create(username=username, first_name=first_name, last_name=last_name)
+                    serv_group.user_set.add(user)
+                    if created:
+                        user.set_password(password)
+                        user.save()
+                except:
+                    pass
             else:
                 break
         return csv_file
