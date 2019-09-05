@@ -7,9 +7,9 @@ ALLOWED_HOSTS = ['moepex.ibiruba.ifrs.edu.br']
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'moepex',
-        'USER': 'moepex',
-        'PASSWORD': 'moepex',
+        'NAME': 'moepex2019',
+        'USER': 'moepex2019',
+        'PASSWORD': 'moepex2019',
         'CONN_MAX_AGE': 60,
         'HOST': '127.0.0.1',
         'PORT': '5432',
