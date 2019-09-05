@@ -1,10 +1,15 @@
 {% extends "base.html" %}
+
 {% load bootstrap %}
+
+{% block page_title %}Importar{% endblock page_title %}
+
 {% block content %}
+
   <section>
     <div class="container">
-      <h1>Adicionar Turma</h1>
-      <form method="POST">
+      <h1>Enviar arquivos</h1>
+      <form method="POST" enctype='multipart/form-data'>
         {% csrf_token %}
         {{ form|bootstrap }}
         <div align="right">
@@ -14,4 +19,5 @@
       </form>
     </div>
   </section>
+
 {% endblock content %}

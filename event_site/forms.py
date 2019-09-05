@@ -1,47 +1,86 @@
-import re
+import csv
 
 from django import forms
-from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth.models import User
-
-def DV_maker(v):
-    if v >= 2:
-        return 11 - v
-    return 0
+from django.contrib.auth.models import User, Group
 
 
-class SignUpForm(UserCreationForm):
 
-    def __init__(self, *args, **kwargs):
-        super(SignUpForm, self).__init__(*args, **kwargs)
-        self.fields['username'].label = 'CPF'
-        self.fields['username'].help_text = None
+def validate_file_extension(value):
+        if not value.name.endswith('.csv'):
+            raise forms.ValidationError("Apenas arquivos csv são aceitos.")
 
-    class Meta:
-        model = User
-        fields = ('username', 'first_name', 'last_name', 'email', 'password1', 'password2', )
+class ImportForm(forms.Form):
+    docfile = forms.FileField(label='Selecionar Arquivo',validators=[validate_file_extension])
 
-    def clean_username(self):
-        cpf = self.cleaned_data['username']
-        value = cpf
-        if not value.isdigit():
-            value = re.sub("[-\.]", "", value)
-        orig_value = value[:]
-        try:
-            int(value)
-        except ValueError:
-            raise forms.ValidationError("CPF Inválido!")
-        if len(value) != 11:
-            raise forms.ValidationError("CPF Inválido!")
-        orig_dv = value[-2:]
 
-        new_1dv = sum([i * int(value[idx]) for idx, i in enumerate(range(10, 1, -1))])
-        new_1dv = DV_maker(new_1dv % 11)
-        value = value[:-2] + str(new_1dv) + value[-1]
-        new_2dv = sum([i * int(value[idx]) for idx, i in enumerate(range(11, 1, -1))])
-        new_2dv = DV_maker(new_2dv % 11)
-        value = value[:-1] + str(new_2dv)
-        if value[-2:] != orig_dv:
-            raise forms.ValidationError("CPF Inválido!")
+class ImportFormSIGAA(ImportForm):
 
-        return cpf
+    def clean_docfile(self):
+        csv_file = self.cleaned_data['docfile']
+        lines = csv_file.read().decode("utf-8").split("\n")
+        for line in lines[1:]:
+            fields = line.split(",")
+            if len(fields) >= 3:
+                username = fields[2].replace('"', '')
+                name = fields[0].replace('"', '').strip().upper().split()
+                first_name = name[0]
+                last_name = ' '.join(name[1:])
+                password = fields[4].replace('"', '')
+                user, created = User.objects.get_or_create(username=username, first_name=first_name, last_name=last_name)
+                if created:
+                    user.set_password(password)
+                    user.save()
+            else:
+                break
+        return csv_file
+
+
+class ImportFormSIA(ImportForm):
+
+    def clean_docfile(self):
+        csv_file = self.cleaned_data['docfile']
+        lines = csv_file.read().decode("utf-8").split("\n")
+        for line in lines[1:]:
+            fields = line.split(",")
+            if len(fields) >= 3:
+                cpf = fields[7].replace('"', '')
+                username = '%s.%s.%s-%s' % (cpf[0:3], cpf[3:6], cpf[6:9], cpf[9:11])
+                name = fields[1].replace('"', '').strip().upper().split()
+                first_name = name[0]
+                last_name = ' '.join(name[1:])
+                password = fields[0].replace('"', '')
+                password = password
+                user, created = User.objects.get_or_create(username=username, first_name=first_name, last_name=last_name)
+                if created:
+                    user.set_password(password)
+                    user.save()
+            else:
+                break
+        return csv_file
+
+
+class ImportFormServ(ImportForm):
+
+    def clean_docfile(self):
+        csv_file = self.cleaned_data['docfile']
+        lines = csv_file.read().decode("utf-8").split("\n")
+        serv_group, created = Group.objects.get_or_create(name='servidores')
+        for line in lines[1:]:
+            fields = line.split(",")
+            if len(fields) >= 3:
+                username = fields[2].replace('"', '').strip()
+                name = fields[1].replace('"', '').strip().upper().split()
+                first_name = name[0]
+                last_name = ' '.join(name[1:])
+                password = fields[0].replace('"', '').strip()
+                try:
+                    user, created = User.objects.get_or_create(username=username, first_name=first_name, last_name=last_name)
+                    serv_group.user_set.add(user)
+                    if created:
+                        user.set_password(password)
+                        user.save()
+                except:
+                    pass
+            else:
+                break
+        return csv_file

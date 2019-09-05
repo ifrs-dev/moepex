@@ -5,13 +5,10 @@ from events import views as views_events
 
 
 urlpatterns = [
-    path('trabalho/<int:pk>/', views_events.ExperimentDetailView.as_view(), name='experiment-detail'),
     path('minicurso/<int:pk>/', views_events.EventDetailView.as_view(), name='event-detail'),
     path('csv/',views_events.getfile, name='csv'),
-    path('csv-trabalhos/',views_events.getfile_trabalhos, name='csv-trabalhos'),
-    path('meus-eventos/', login_required(views_events.MyRegistrationsListView.as_view()), name='my-events'),
-    #path('trabalho/novo/', login_required(views_events.ExperimentCreateView.as_view()), name='experiment-create'),
-    #path('minicurso/novo/', login_required(views_events.EventCreateView.as_view()), name='event-create'),
+    path('meus-minicursos/', login_required(views_events.MyRegistrationsListView.as_view()), name='my-events'),
+    path('minicurso/novo/', login_required(views_events.EventCreateView.as_view()), name='event-create'),
     path('minicurso/<int:pk>/turmas/', login_required(views_events.GroupListView.as_view()), name='group-list'),
     path('minicurso/inscricao/<int:pk>/', login_required(views_events.EventRegistrationView.as_view()), name="event-registration"),
     path('minicurso/cancelar-inscricao/<int:pk>/', login_required(views_events.EventRegistrationDeleteView.as_view()), name="event-delete-registration"),

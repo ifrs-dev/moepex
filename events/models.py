@@ -39,31 +39,6 @@ CHOICES_SHIFTS_2 = (
 CHOICES_SHIFTS = CHOICES_SHIFTS_2 + CHOICES_SHIFTS_4
 
 
-class Experiment(models.Model):
-
-    class Meta:
-        verbose_name = "Trabalho"
-        verbose_name_plural = "Trabalhos"
-
-    title = models.CharField(max_length=200, verbose_name='Título')
-    description = models.TextField(verbose_name='Resumo (Breve descrição)', help_text='Paragráfo único com no máximo 50 palavras.')
-    goal = models.TextField(verbose_name='Objetivo')
-    status = models.IntegerField(choices=CHOICES_STATUS_EVENT, default=1, verbose_name='Status')
-    author = models.ForeignKey(User, verbose_name='Autor', on_delete=models.PROTECT, related_name='author_experiments')
-    co_authors = models.ManyToManyField(User, verbose_name='Co-autores', related_name='co_authors_experiments', blank=True)
-    supervisor = models.ForeignKey(User, verbose_name='Orientador', on_delete=models.PROTECT, related_name='supervised_experiments')
-
-    def __str__(self):
-        return self.title
-
-    def get_author(self):
-        authors = [u.get_full_name() for u in self.co_authors.all()]
-        authors += [self.author.get_full_name()]
-        if self.supervisor:
-            authors += [self.supervisor.get_full_name()]
-        return ', '.join(authors)
-
-
 class Event(models.Model):
 
     class Meta:
