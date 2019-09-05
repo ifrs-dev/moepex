@@ -39,7 +39,7 @@ cd /webapps/
 git clone git@github.com:ifrs-dev/moepex.git
 cd /webapps/moepex/
 git fetch
-git checkout prod
+git checkout prod2019
 ```
 
 
