@@ -6,7 +6,6 @@ from events import views as views_events
 
 urlpatterns = [
     path('minicurso/<int:pk>/', views_events.EventDetailView.as_view(), name='event-detail'),
-    path('csv/',views_events.getfile, name='csv'),
     path('meus-minicursos/', login_required(views_events.MyRegistrationsListView.as_view()), name='my-events'),
     path('minicurso/novo/', login_required(views_events.EventCreateView.as_view()), name='event-create'),
     path('minicurso/<int:pk>/turmas/', login_required(views_events.GroupListView.as_view()), name='group-list'),

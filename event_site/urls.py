@@ -10,5 +10,5 @@ urlpatterns = [
     path('importar/sia/', staff_member_required(views.SiaImporterView.as_view()), name='sia-importer'),
     path('importar/sigaa/', staff_member_required(views.SigaaImporterView.as_view()), name='sigaa-importer'),
     path('importar/servidores/', staff_member_required(views.ServImporterView.as_view()), name='serv-importer'),
-    path('certificados/', staff_member_required(views.get_certified), name='get-certifieds'),
+    path('certificados/', staff_member_required(views.get_certifieds), name='get-certifieds'),
 ]

@@ -45,12 +45,15 @@
                 </a>
               </li>
               {% if request.user.is_authenticated %}
+                {% comment %}
                 <li><a href="{% url 'event-create' %}">Cadastrar Minicurso</a></li>
                 <li><a href="{% url 'my-events' %}">Meus Minicursos</a></li>
+                {% endcomment %}
                 {% if request.user.is_staff %}
                   <a href="{% url 'admin:index' %}" class="btn navbar-btn btn-ghost" data-toggle="tooltip" data-placement="bottom" title="Admin">
                     <i class="fa fa-lock"></i>
                   </a>
+                  {% comment %}
                   <a href="{% url 'sia-importer' %}" class="btn navbar-btn btn-ghost" data-toggle="tooltip" data-placement="bottom" title="Importar do SIA">
                     <i class="fa fa-upload" aria-hidden="true"></i>
                   </a>
@@ -60,6 +63,7 @@
                   <a href="{% url 'serv-importer' %}" class="btn navbar-btn btn-ghost" data-toggle="tooltip" data-placement="bottom" title="Importar Servidores">
                     <i class="fa fa-upload" aria-hidden="true"></i>
                   </a>
+                  {% endcomment %}
                   <a href="{% url 'get-certifieds' %}" class="btn navbar-btn btn-ghost" data-toggle="tooltip" data-placement="bottom" title="Certificados">
                     <i class="fa fa-download" aria-hidden="true"></i>
                   </a>
