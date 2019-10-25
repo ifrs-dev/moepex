@@ -137,9 +137,11 @@ class RegistrationsListView(DetailView):
         registration.save()
         return super().get(request, *args, **kwargs)
 
+
 class RegistrationsPDFView(RegistrationsListView, PDFTemplateResponseMixin):
     template_name = 'events/registrations-list-pdf.html'
     pdf = True
+
 
 class RegistrationDetailView(DetailView, PDFTemplateResponseMixin):
     model = Registration
@@ -147,34 +149,3 @@ class RegistrationDetailView(DetailView, PDFTemplateResponseMixin):
     page_size = 100
     page_size_query_param = 'page_size'
     max_page_size = 10000
-
-def build_row(user, event, role='Ouvinte'):
-    row = ['', '', '', role, 'VII MOEPEX - Mostra de Ensino Pesquisa e Extensão', '', '4 de outubro de 2018', '']
-    row[0] = user.get_full_name()
-    row[1] = user.username
-    row[2] = user.email
-    row[5] = events.title
-    row[7] = 'totalizando 2 horas'
-    return row
-
-def getfile(request):
-    response = HttpResponse(content_type='text/csv')
-    response['Content-Disposition'] = 'attachment; filename="certificados.csv"'
-    writer = csv.writer(response)
-    writer.writerow(['NOME_PARTICIPANTE','CPF_PARTICIPANTE','EMAIL_PARTICIPANTE','CONDICAO_PARTICIPACAO','FORMA_ACAO','TITULO_ACAO','PERIODO_REALIZACAO','CARGA_HORARIA'])
-
-
-    registrations = Registration.objects.all().filter(status=2)
-    for r in registrations:
-
-        writer.writerow(build_row(r.user, r.group.event))
-
-    events = Event.objects.filter(status=2)
-
-    for event in events:
-        writer.writerow(build_row(event.author, event, 'Ministrante'))
-        if event.supervisor:
-            writer.writerow(build_row(event.supervisor, event, 'Ministrante'))
-        for coautor in event.co_authors.all():
-            writer.writerow(build_row(coautor, event, 'Ministrante'))
-    return response

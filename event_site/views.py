@@ -39,16 +39,19 @@ class ServImporterView(FormView):
     def get_success_url(self):
         return reverse('home')
 
+
 def build_row(user, event, role='Ouvinte'):
-    row = ['', '', '', role, 'Mostra de minicursos', '', '28 de agosto de 2019', '']
+    row = ['', '', '', role, 'VIII MOEPEX - Mostra de Ensino Pesquisa e Extensão', '', '3 de outubro de 2019', '']
     row[0] = user.get_full_name()
     row[1] = user.username
     row[2] = user.email
     row[5] = event.title
-    row[7] = 'totalizando 8 horas'
+    workload = event.get_workload_display()
+    row[7] = f'totalizando {workload}'
     return row
 
-def get_certified(request):
+
+def get_certifieds(request):
     response = HttpResponse(content_type='text/csv')
     response['Content-Disposition'] = 'attachment; filename="certificados.csv"'
     writer = csv.writer(response)
@@ -57,9 +60,12 @@ def get_certified(request):
     events = Event.objects.filter(status=2)
 
     for event in events:
-        writer.writerow(build_row(event.author, event, 'autor(a)'))
+        writer.writerow(build_row(event.author, event, 'Ministrante'))
         if event.supervisor:
-            writer.writerow(build_row(event.supervisor, event, 'orientador(a)'))
+            writer.writerow(build_row(event.supervisor, event, 'Ministrante'))
         for coautor in event.co_authors.all():
-            writer.writerow(build_row(coautor, event, 'co-autor(a)'))
+            writer.writerow(build_row(coautor, event, 'Ministrante'))
+        for group in event.groups.all():
+            for registration in group.registrations.filter(status=2):
+                writer.writerow(build_row(registration.user, event, 'Ouvinte'))
     return response
