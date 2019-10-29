@@ -47,7 +47,7 @@ def build_row(user, event, role='Ouvinte'):
     row[2] = user.email
     row[5] = event.title
     workload = event.get_workload_display()
-    row[7] = 'totalizando {workload}'
+    row[7] = event.get_workload_display()
     return row
 
 
